@@ -3,6 +3,7 @@ package ehu.weka;
 import weka.core.Instances;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -41,10 +42,13 @@ public class Main {
         Instances test = p.datuakKargatu(args[3]);
 
         //train.arff-ren hiztegia lortu
-        p.hiztegiaGorde(vectorData,args[4]);
+        HashMap<String, Integer> hiztegia = p.hiztegiaGorde(vectorData);
+        hiztegia = p.hiztegiaEguneratu("Dictionary.txt",hiztegia);
+        p.dictionaryGorde(args[4], hiztegia);
+
 
         //FixedDictoniaryStringToWordVector
-        File file = new File("Dictionary.txt");
+        File file = new File(args[4]);
         Instances vectorTest = p.fixedDictionaryStringToVector(file,test);
         p.datuakGorde(args[5],vectorTest);
     }
