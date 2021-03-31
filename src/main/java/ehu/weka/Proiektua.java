@@ -41,7 +41,14 @@ public class Proiektua {
         StringToWordVector filterVector = new StringToWordVector();
         filterVector.setInputFormat(data);
         filterVector.setWordsToKeep(Integer.MAX_VALUE);
+        File f = new File("Dictionary.txt");
+        filterVector.setDictionaryFileToSaveTo(f);
         Instances vectorData = Filter.useFilter(data,filterVector);
+
+
+        System.out.println(f.getAbsolutePath());
+
+
         return vectorData;
     }
 

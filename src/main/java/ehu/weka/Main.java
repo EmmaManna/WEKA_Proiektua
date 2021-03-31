@@ -44,7 +44,7 @@ public class Main {
         p.hiztegiaGorde(vectorData,args[4]);
 
         //FixedDictoniaryStringToWordVector
-        File file = new File(args[4]);
+        File file = new File("Dictionary.txt");
         Instances vectorTest = p.fixedDictionaryStringToVector(file,test);
         p.datuakGorde(args[5],vectorTest);
     }
