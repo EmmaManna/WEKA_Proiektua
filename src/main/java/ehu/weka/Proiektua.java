@@ -27,7 +27,7 @@ public class Proiektua {
     public Instances datuakKargatu(String path) throws Exception {
         ConverterUtils.DataSource source = new ConverterUtils.DataSource(path);
         Instances data = source.getDataSet();
-        data.setClassIndex(data.numAttributes()-1);
+        data.setClassIndex(0);
         return data;
     }
 
@@ -40,10 +40,11 @@ public class Proiektua {
 
     public Instances stringToVector(Instances data) throws Exception {
         StringToWordVector filterVector = new StringToWordVector();
-        filterVector.setInputFormat(data);
-        filterVector.setWordsToKeep(Integer.MAX_VALUE);
-        File f = new File("Dictionary.txt");
+        filterVector.setWordsToKeep(3000);
+        filterVector.setLowerCaseTokens(true);
+        File f = new File("Dictionary2.txt");
         filterVector.setDictionaryFileToSaveTo(f);
+        filterVector.setInputFormat(data);
         Instances vectorData = Filter.useFilter(data,filterVector);
 
 
