@@ -11,6 +11,7 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class Proiektua {
     private static final Proiektua instance = new Proiektua();
@@ -26,7 +27,7 @@ public class Proiektua {
     public Instances datuakKargatu(String path) throws Exception {
         ConverterUtils.DataSource source = new ConverterUtils.DataSource(path);
         Instances data = source.getDataSet();
-        data.setClassIndex(data.numAttributes()-1);
+        data.setClassIndex(0);
         return data;
     }
 
@@ -39,9 +40,17 @@ public class Proiektua {
 
     public Instances stringToVector(Instances data) throws Exception {
         StringToWordVector filterVector = new StringToWordVector();
+        filterVector.setWordsToKeep(3000);
+        filterVector.setLowerCaseTokens(true);
+        File f = new File("Dictionary2.txt");
+        filterVector.setDictionaryFileToSaveTo(f);
         filterVector.setInputFormat(data);
-        filterVector.setWordsToKeep(Integer.MAX_VALUE);
         Instances vectorData = Filter.useFilter(data,filterVector);
+
+
+        System.out.println(f.getAbsolutePath());
+
+
         return vectorData;
     }
 
@@ -59,12 +68,54 @@ public class Proiektua {
         return nonSparseData;
     }
 
-    public void hiztegiaGorde(Instances data, String path) throws IOException {
-        FileWriter fw = new FileWriter(path);
+    public HashMap<String,Integer> hiztegiaGorde(Instances data) throws IOException {
+        HashMap<String, Integer> hiztegia = new HashMap();
         for(int i=0;i<data.numAttributes()-1;i++) {
             Attribute attrib = data.attribute(i);
-            fw.write(attrib.name()+"\n");
+            hiztegia.put(attrib.name(),1);
         }
+        return hiztegia;
+
+    }
+
+    public HashMap<String,Integer> hiztegiaEguneratu(String path, HashMap<String, Integer> hiztegia) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(path));
+            String contentLine = br.readLine();
+            while (contentLine != null) {
+                String[] lerroa = contentLine.split(",");
+                String atributua = lerroa[0];
+                Integer maiztasuna = Integer.parseInt(lerroa[1]);
+                if(hiztegia.containsKey(atributua)){
+                    hiztegia.put(atributua,maiztasuna);
+                }
+                contentLine = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        dictionaryEzabatu(path);
+        return hiztegia;
+    }
+
+    private void dictionaryEzabatu(String path){
+        File f = new File(path);
+        if(f.exists()){
+            f.delete();
+        }
+    }
+
+    public void dictionaryGorde(String path, HashMap<String,Integer> hiztegia) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        hiztegia.forEach((k,v) -> {
+            try {
+                fw.write(k+","+v+"\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         fw.close();
     }
 
