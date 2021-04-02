@@ -97,7 +97,7 @@ public class TransformRaw {
         filterVector.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         filterVector.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
         filterVector.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
-        File f = new File("Dictionary2.txt");
+        File f = new File("DictionaryRaw.txt");
         filterVector.setDictionaryFileToSaveTo(f); //Lortutako atributu (hitzak) lista gorde hitz bakiotzaren maiztasunekin
         filterVector.setInputFormat(data);
         Instances vectorData = Filter.useFilter(data,filterVector);
