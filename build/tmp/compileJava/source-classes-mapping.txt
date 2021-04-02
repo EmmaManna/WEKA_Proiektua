@@ -1,0 +1,4 @@
+ehu/weka/Proiektua.java
+ ehu.weka.Proiektua
+ehu/weka/Main.java
+ ehu.weka.Main
