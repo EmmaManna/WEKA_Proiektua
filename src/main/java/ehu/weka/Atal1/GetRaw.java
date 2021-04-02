@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class GetRaw {
-    /** Egin beharrekoa: GetRawdokumentu  sorta  arff  raw  formatora  bihurtzeko  ad-hoc  diseinatutako  softwarea.
+    /** Egin beharrekoa: GetRaw dokumentu  sorta  arff  raw  formatora  bihurtzeko  ad-hoc  diseinatutako  softwarea.
      *					 Dokumentu bakoitza instantzia bat izango da.  Hau text deritzan string motako atribu-tu bakar
      *					 batekin karakterizatuko da eta class deritzan klase nominalarekin (e.g.  spam,NOspam).
      *	@author Xabi Dermit, Jon Gondra eta Emma Manna

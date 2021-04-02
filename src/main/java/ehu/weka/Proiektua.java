@@ -42,6 +42,8 @@ public class Proiektua {
         StringToWordVector filterVector = new StringToWordVector();
         filterVector.setWordsToKeep(3000);
         filterVector.setLowerCaseTokens(true);
+        filterVector.setTFTransform(false);
+        filterVector.setIDFTransform(false);
         File f = new File("Dictionary2.txt");
         filterVector.setDictionaryFileToSaveTo(f);
         filterVector.setInputFormat(data);
