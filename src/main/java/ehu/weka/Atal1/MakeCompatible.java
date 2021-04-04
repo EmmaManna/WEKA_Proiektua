@@ -5,10 +5,7 @@ import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.ConverterUtils;
 import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.AddValues;
-import weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector;
-import weka.filters.unsupervised.attribute.RenameNominalValues;
-import weka.filters.unsupervised.attribute.StringToNominal;
+import weka.filters.unsupervised.attribute.*;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 import java.io.*;
@@ -51,11 +48,6 @@ public class MakeCompatible {
         //Testaren headers-ak moldatu
         test = stringToNominal(test);
 
-        //ESTO ES SOLO PARA COMPROBAR QUE CAMBIA LOS HEADERS CUANDO SE SOLUCIONE LO BORRAMOS
-        if(train.equalHeaders(test)) System.out.println("olee");
-        datuakGorde(args[4],test);
-        System.exit(0);
-
         //Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu(train);
         //Hash-a eguneratu
@@ -91,7 +83,8 @@ public class MakeCompatible {
             System.out.println("Errorea: Laugarren parametroa ez da zuzena");
             System.exit(0);
         }
-
+        //Klasea azken atributuan jarri
+        vectorTest = reorder(vectorTest);
         datuakGorde(args[4],vectorTest);
 
 
@@ -111,22 +104,22 @@ public class MakeCompatible {
 
     private static Instances addValues(Instances test) throws Exception {
         AddValues filterAV =new AddValues();
-        filterAV.setInputFormat(test);
         String[] options = new String[4];
         options[0] = "-C";
         options[1] = "first";
         options[2] = "-L";
         options[3] = "no,yes";
         filterAV.setOptions(options);
-/*
-        filterAV.setAttributeIndex("first");
-        filterAV.setDebug(false);
-        filterAV.setDoNotCheckCapabilities(false);
-        filterAV.setLabels("no,yes");
-        filterAV.setSort(false);
+        filterAV.setInputFormat(test);
+        test = Filter.useFilter(test, filterAV);
+        return test;
+    }
 
- */
-
+    private static Instances reorder(Instances test) throws Exception {
+        Reorder filterR = new Reorder();
+        filterR.setAttributeIndices("2-"+ test.numAttributes()+",1"); //2-atributu kop, 1.  2-atributu kop bitarteko atributuak goian jarriko dira eta 1 atributua (klasea dena) amaieran.
+        filterR.setInputFormat(test);
+        test = Filter.useFilter(test,filterR);
         return test;
     }
 
