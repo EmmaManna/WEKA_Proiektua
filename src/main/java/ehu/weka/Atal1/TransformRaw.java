@@ -58,6 +58,7 @@ public class TransformRaw {
             else if(vector.equals("1")){ //TF·IDF
                 //StringToWordVector - TF·IDF
                 data = stringToWordVector(data,true);
+                datuakGorde("C:\\Users\\emmam\\Desktop\\WEKA\\Proiektua\\Data\\trainTDIFSparseProba.arff",data);
                 //AttributeSelection
                 data = selection(data);
             }
@@ -83,6 +84,7 @@ public class TransformRaw {
         }
 
     }
+
     public static Instances datuakKargatu(String path) throws Exception {
         ConverterUtils.DataSource source = new ConverterUtils.DataSource(path);
         Instances data = source.getDataSet();
@@ -92,7 +94,7 @@ public class TransformRaw {
 
     public static Instances stringToWordVector(Instances data, boolean bool) throws Exception {
         StringToWordVector filterVector = new StringToWordVector(); //Hitzen agerpena adieraziko du 0 --> Ez agertu eta 1 --> Agertu
-        filterVector.setWordsToKeep(3000);
+        filterVector.setWordsToKeep(1000);
         filterVector.setLowerCaseTokens(true); //Letra larria nahiz xehea baliokidetu
         filterVector.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         filterVector.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
@@ -101,7 +103,7 @@ public class TransformRaw {
         filterVector.setDictionaryFileToSaveTo(f); //Lortutako atributu (hitzak) lista gorde hitz bakiotzaren maiztasunekin
         filterVector.setInputFormat(data);
         Instances vectorData = Filter.useFilter(data,filterVector);
-
+        data.setClassIndex(0);
 
         System.out.println(f.getAbsolutePath());
 
