@@ -5,7 +5,10 @@ import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.ConverterUtils;
 import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.AddValues;
 import weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector;
+import weka.filters.unsupervised.attribute.RenameNominalValues;
+import weka.filters.unsupervised.attribute.StringToNominal;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 import java.io.*;
@@ -45,6 +48,13 @@ public class MakeCompatible {
         //Datuak kargatu: train eta test
         Instances train = datuakKargatu(args[0]);
         Instances test = datuakKargatu(args[1]);
+        //Testaren headers-ak moldatu
+        test = stringToNominal(test);
+
+        //ESTO ES SOLO PARA COMPROBAR QUE CAMBIA LOS HEADERS CUANDO SE SOLUCIONE LO BORRAMOS
+        if(train.equalHeaders(test)) System.out.println("olee");
+        datuakGorde(args[4],test);
+        System.exit(0);
 
         //Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu(train);
@@ -85,6 +95,39 @@ public class MakeCompatible {
         datuakGorde(args[4],vectorTest);
 
 
+    }
+
+    private static Instances stringToNominal(Instances test) throws Exception {
+        StringToNominal filterSTN = new StringToNominal();
+        filterSTN.setInputFormat(test);
+        String[] options = new String[2];
+        options[0] = "-R";
+        options[1] = "first";
+        filterSTN.setOptions(options);
+        test = Filter.useFilter(test, filterSTN);
+        test = addValues(test);
+        return test;
+    }
+
+    private static Instances addValues(Instances test) throws Exception {
+        AddValues filterAV =new AddValues();
+        filterAV.setInputFormat(test);
+        String[] options = new String[4];
+        options[0] = "-C";
+        options[1] = "first";
+        options[2] = "-L";
+        options[3] = "no,yes";
+        filterAV.setOptions(options);
+/*
+        filterAV.setAttributeIndex("first");
+        filterAV.setDebug(false);
+        filterAV.setDoNotCheckCapabilities(false);
+        filterAV.setLabels("no,yes");
+        filterAV.setSort(false);
+
+ */
+
+        return test;
     }
 
 

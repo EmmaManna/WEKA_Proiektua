@@ -4,9 +4,9 @@ ehu/weka/Atal2/NN.java
  ehu.weka.NN
 ehu/weka/Atal1/GetRaw.java
  ehu.weka.Atal1.GetRaw
-ehu/weka/Main.java
- ehu.weka.Main
 ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
+ehu/weka/Main.java
+ ehu.weka.Main
 ehu/weka/Atal1/MakeCompatible.java
  ehu.weka.Atal1.MakeCompatible
