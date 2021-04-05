@@ -50,10 +50,9 @@ public class MakeCompatible {
 
         //Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu(train);
-        //Hash-a eguneratu
-        hiztegia = hashEguneratu("DictionaryRaw.txt",hiztegia);
-        //Hash-a fitxategi batean gorde
-        dictionaryGorde("Dictionary.txt", hiztegia);
+        //Hiztegia gorde
+        dictionaryGorde("DictionaryRaw.txt",hiztegia,"Dictionary.txt");
+
 
         //FixedDictoniaryStringToWordVector
         File file = new File("Dictionary.txt");
@@ -142,45 +141,36 @@ public class MakeCompatible {
     }
 
 
-    public static HashMap<String,Integer> hashEguneratu(String path, HashMap<String, Integer> hiztegia) {
+    public static void dictionaryGorde(String pathRaw, HashMap<String, Integer> hiztegia, String path) throws IOException {
+        FileWriter fw = new FileWriter(path);
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader(path));
+            br = new BufferedReader(new FileReader(pathRaw));
             String contentLine = br.readLine();
             while (contentLine != null) {
                 String[] lerroa = contentLine.split(",");
                 String atributua = lerroa[0];
                 Integer maiztasuna = Integer.parseInt(lerroa[1]);
                 if(hiztegia.containsKey(atributua)){
-                    hiztegia.put(atributua,maiztasuna);
+                    fw.write(atributua+","+maiztasuna+"\n");
                 }
                 contentLine = br.readLine();
             }
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
 
         }
-        return hiztegia;
-    }
 
-    public static void dictionaryGorde(String path, HashMap<String,Integer> hiztegia) throws IOException {
-        FileWriter fw = new FileWriter(path);
-        hiztegia.forEach((k,v) -> {
-            try {
-                fw.write(k+","+v+"\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        fw.close();
     }
 
     public static Instances fixedDictionaryStringToVector(File dictionary, Instances test,  boolean bool) throws Exception {
         FixedDictionaryStringToWordVector filterFixedDictionary = new FixedDictionaryStringToWordVector();
         filterFixedDictionary.setDictionaryFile(dictionary);
+        filterFixedDictionary.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
         filterFixedDictionary.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         filterFixedDictionary.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
-        filterFixedDictionary.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
+        filterFixedDictionary.setLowerCaseTokens(true);
         filterFixedDictionary.setInputFormat(test);
         Instances fixedTest = Filter.useFilter(test,filterFixedDictionary);
         return fixedTest;
