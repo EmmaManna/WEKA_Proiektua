@@ -58,7 +58,7 @@ public class TransformRaw {
             else if(vector.equals("1")){ //TF·IDF
                 //StringToWordVector - TF·IDF
                 data = stringToWordVector(data,true);
-                datuakGorde("C:\\Users\\emmam\\Desktop\\WEKA\\Proiektua\\Data\\trainTDIFSparseProba.arff",data);
+                //datuakGorde("C:\\Users\\emmam\\Desktop\\WEKA\\Proiektua\\Data\\trainTDIFSparseProba.arff",data);
                 //AttributeSelection
                 data = selection(data);
             }
@@ -94,6 +94,7 @@ public class TransformRaw {
 
     public static Instances stringToWordVector(Instances data, boolean bool) throws Exception {
         StringToWordVector filterVector = new StringToWordVector(); //Hitzen agerpena adieraziko du 0 --> Ez agertu eta 1 --> Agertu
+        /*
         filterVector.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
         filterVector.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         File f = new File("DictionaryRaw.txt");
@@ -102,10 +103,45 @@ public class TransformRaw {
         filterVector.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
         filterVector.setWordsToKeep(1000);
         filterVector.setInputFormat(data);
+         */
+        String[] options;
+        if(bool) {
+            options = new String[14];
+            options[0] = "-R";
+            options[1] = "first-last";
+            options[2] = "-W";
+            options[3] = "1000";
+            options[4] = "-prune-rate";
+            options[5] = "-1.0";
+            options[6] = "-C";
+            options[7] = "-T";
+            options[8] = "-I";
+            options[9] = "-N";
+            options[10] = "0";
+            options[11] = "-L";
+            options[12] = "-dictionary";
+            options[13] = "Dictionary.txt";
+        }else{
+            options = new String[11];
+            options[0] = "-R";
+            options[1] = "first-last";
+            options[2] = "-W";
+            options[3] = "1000";
+            options[4] = "-prune-rate";
+            options[5] = "-1.0";
+            options[6] = "-N";
+            options[7] = "0";
+            options[8] = "-L";
+            options[9] = "-dictionary";
+            options[10] = "Dictionary.txt";
+
+        }
+        filterVector.setOptions(options);
+        filterVector.setInputFormat(data);
         Instances vectorData = Filter.useFilter(data,filterVector);
         data.setClassIndex(0);
 
-        System.out.println(f.getAbsolutePath());
+        //System.out.println(f.getAbsolutePath());
 
 
         return vectorData;

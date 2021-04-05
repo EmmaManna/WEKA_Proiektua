@@ -55,7 +55,7 @@ public class MakeCompatible {
 
 
         //FixedDictoniaryStringToWordVector
-        File file = new File("Dictionary.txt");
+        //File file = new File("Dictionary.txt");
 
         String vector = args[2];
         String emaitza = args[3];
@@ -64,11 +64,11 @@ public class MakeCompatible {
         //BOW edo TF·IDF
         if(vector.equals("0")){ //BoW
             //StringToWordVector - BoW
-            vectorTest = fixedDictionaryStringToVector(file,test,false);
+            vectorTest = fixedDictionaryStringToVector("Dictionary.txt",test,false);
         }
         else if(vector.equals("1")){ //TF·IDF
             //StringToWordVector - TF·IDF
-            vectorTest = fixedDictionaryStringToVector(file,test,true);
+            vectorTest = fixedDictionaryStringToVector("Dictionary.txt",test,true);
         }
         else{
             System.out.println("Errorea: Hirugarren parametroa ez da zuzena");
@@ -167,13 +167,27 @@ public class MakeCompatible {
 
     }
 
-    public static Instances fixedDictionaryStringToVector(File dictionary, Instances test,  boolean bool) throws Exception {
+    public static Instances fixedDictionaryStringToVector(String dictionary, Instances test,  boolean bool) throws Exception {
         FixedDictionaryStringToWordVector filterFixedDictionary = new FixedDictionaryStringToWordVector();
+        /*
         filterFixedDictionary.setDictionaryFile(dictionary);
         filterFixedDictionary.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
         filterFixedDictionary.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         filterFixedDictionary.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
         filterFixedDictionary.setLowerCaseTokens(true);
+        filterFixedDictionary.setInputFormat(test);
+
+         */
+        String[] options = new String[8];
+        options[0] = "-I";
+        options[1] = "-T";
+        options[2] = "-R";
+        options[3] = "first-last";
+        options[4] = "-dictionary";
+        options[5] = dictionary;
+        options[6] = "-L";
+        options[7] = "-C";
+        filterFixedDictionary.setOptions(options);
         filterFixedDictionary.setInputFormat(test);
         Instances fixedTest = Filter.useFilter(test,filterFixedDictionary);
         return fixedTest;
