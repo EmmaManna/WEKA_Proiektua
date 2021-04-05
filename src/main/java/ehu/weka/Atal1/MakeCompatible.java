@@ -51,7 +51,7 @@ public class MakeCompatible {
         //Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu(train);
         //Hiztegia gorde
-        dictionaryGorde("DictionaryRaw.txt",hiztegia,"Dictionary.txt");
+        dictionaryGorde("DictionaryRaw.txt",hiztegia,"Dictionary.txt",train.numInstances());
 
 
         //FixedDictoniaryStringToWordVector
@@ -85,7 +85,7 @@ public class MakeCompatible {
         //Klasea azken atributuan jarri
         vectorTest = reorder(vectorTest);
         datuakGorde(args[4],vectorTest);
-
+        System.out.println("FINIKITO");
 
     }
 
@@ -98,6 +98,7 @@ public class MakeCompatible {
         filterSTN.setOptions(options);
         test = Filter.useFilter(test, filterSTN);
         test = addValues(test);
+        test.setClassIndex(0);
         return test;
     }
 
@@ -111,6 +112,7 @@ public class MakeCompatible {
         filterAV.setOptions(options);
         filterAV.setInputFormat(test);
         test = Filter.useFilter(test, filterAV);
+        test.setClassIndex(0);
         return test;
     }
 
@@ -141,8 +143,9 @@ public class MakeCompatible {
     }
 
 
-    public static void dictionaryGorde(String pathRaw, HashMap<String, Integer> hiztegia, String path) throws IOException {
+    public static void dictionaryGorde(String pathRaw, HashMap<String, Integer> hiztegia, String path, int docs) throws IOException {
         FileWriter fw = new FileWriter(path);
+        fw.write("@@@numDocs="+docs+"@@@\n");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(pathRaw));
