@@ -120,7 +120,7 @@ public class TransformRaw {
             options[10] = "0";
             options[11] = "-L";
             options[12] = "-dictionary";
-            options[13] = "Dictionary.txt";
+            options[13] = "DictionaryRaw.txt";
         }else{
             options = new String[11];
             options[0] = "-R";
@@ -133,7 +133,7 @@ public class TransformRaw {
             options[7] = "0";
             options[8] = "-L";
             options[9] = "-dictionary";
-            options[10] = "Dictionary.txt";
+            options[10] = "DictionaryRaw.txt";
 
         }
         filterVector.setOptions(options);

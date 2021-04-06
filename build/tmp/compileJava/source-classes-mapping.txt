@@ -10,5 +10,7 @@ ehu/weka/Atal3/Predictions.java
  ehu.weka.Atal3.Predictions
 ehu/weka/Atal1/MakeCompatible.java
  ehu.weka.Atal1.MakeCompatible
+ehu/weka/uiControllers/PredictionsKudeatzaile.java
+ ehu.weka.uiControllers.PredictionsKudeatzaile
 ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
