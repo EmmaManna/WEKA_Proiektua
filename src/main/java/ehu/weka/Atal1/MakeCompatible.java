@@ -178,15 +178,25 @@ public class MakeCompatible {
         filterFixedDictionary.setInputFormat(test);
 
          */
-        String[] options = new String[8];
-        options[0] = "-I";
-        options[1] = "-T";
-        options[2] = "-R";
-        options[3] = "first-last";
-        options[4] = "-dictionary";
-        options[5] = dictionary;
-        options[6] = "-L";
-        options[7] = "-C";
+        String[] options;
+        if(bool) {
+            options = new String[8];
+            options[0] = "-I";
+            options[1] = "-T";
+            options[2] = "-R";
+            options[3] = "first-last";
+            options[4] = "-dictionary";
+            options[5] = dictionary;
+            options[6] = "-L";
+            options[7] = "-C";
+        }else{
+            options = new String[5];
+            options[0] = "-R";
+            options[1] = "first-last";
+            options[2] = "-dictionary";
+            options[3] = dictionary;
+            options[4] = "-L";
+        }
         filterFixedDictionary.setOptions(options);
         filterFixedDictionary.setInputFormat(test);
         Instances fixedTest = Filter.useFilter(test,filterFixedDictionary);
