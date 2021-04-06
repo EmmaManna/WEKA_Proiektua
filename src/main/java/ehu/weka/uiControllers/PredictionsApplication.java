@@ -50,4 +50,8 @@ public class PredictionsApplication extends Application {
             e.printStackTrace();
         }
     }
+
+    public Stage getStage() {
+        return stage;
+    }
 }

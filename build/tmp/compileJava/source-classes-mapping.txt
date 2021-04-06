@@ -2,15 +2,17 @@ ehu/weka/Proiektua.java
  ehu.weka.Proiektua
 ehu/weka/Atal2/NN.java
  ehu.weka.NN
-ehu/weka/Atal1/GetRaw.java
- ehu.weka.Atal1.GetRaw
-ehu/weka/Main.java
- ehu.weka.Main
-ehu/weka/Atal3/Predictions.java
- ehu.weka.Atal3.Predictions
 ehu/weka/Atal1/MakeCompatible.java
  ehu.weka.Atal1.MakeCompatible
-ehu/weka/uiControllers/PredictionsKudeatzaile.java
- ehu.weka.uiControllers.PredictionsKudeatzaile
+ehu/weka/Atal1/GetRaw.java
+ ehu.weka.Atal1.GetRaw
+ehu/weka/Atal3/Predictions.java
+ ehu.weka.Atal3.Predictions
 ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
+ehu/weka/Main.java
+ ehu.weka.Main
+ehu/weka/uiControllers/PredictionsApplication.java
+ ehu.weka.uiControllers.PredictionsApplication
+ehu/weka/uiControllers/PredictionsKudeatzaile.java
+ ehu.weka.uiControllers.PredictionsKudeatzaile

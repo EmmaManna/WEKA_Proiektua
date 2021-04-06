@@ -1,0 +1,7 @@
+@relation testInstantzia_Egokituta-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.NominalToString-C2
+
+@attribute klasea string
+@attribute tweet string
+
+@data
+?,'how the #altright uses  &amp; insecurity to lure men into #whitesupremacy'

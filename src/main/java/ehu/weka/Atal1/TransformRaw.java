@@ -110,7 +110,7 @@ public class TransformRaw {
             options[0] = "-R";
             options[1] = "first-last";
             options[2] = "-W";
-            options[3] = "7000";
+            options[3] = "1000";
             options[4] = "-prune-rate";
             options[5] = "-1.0";
             options[6] = "-C";
@@ -126,7 +126,7 @@ public class TransformRaw {
             options[0] = "-R";
             options[1] = "first-last";
             options[2] = "-W";
-            options[3] = "7<000";
+            options[3] = "1000";
             options[4] = "-prune-rate";
             options[5] = "-1.0";
             options[6] = "-N";
