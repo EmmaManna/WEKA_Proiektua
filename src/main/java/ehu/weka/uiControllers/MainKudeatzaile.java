@@ -70,6 +70,7 @@ public class MainKudeatzaile implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        anchor_predictions.toFront();
+        anchor_preprocess.toFront();
+
     }
 }

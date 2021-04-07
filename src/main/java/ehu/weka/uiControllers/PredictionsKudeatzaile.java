@@ -14,14 +14,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import weka.classifiers.Evaluation;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class PredictionsKudeatzaile implements Initializable {

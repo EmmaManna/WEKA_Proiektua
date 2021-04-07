@@ -21,6 +21,8 @@ public class PredictionsApplication extends Application {
 
     private MainKudeatzaile mainKud;
     private PredictionsKudeatzaile predictionsKud;
+    private FSSKudeatzaile fssKud;
+    private PreprocessKudeatzaile preprocessKud;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,7 +49,12 @@ public class PredictionsApplication extends Application {
                 return mainKud;
             } else if(type == PredictionsKudeatzaile.class) {
                 return predictionsKud;
+            } else if(type == FSSKudeatzaile.class) {
+                return fssKud;
+            } else if(type == PreprocessKudeatzaile.class) {
+                return preprocessKud;
             }
+
             else {// default behavior for controllerFactory:
                 try {
                     return type.newInstance();
@@ -77,6 +84,10 @@ public class PredictionsApplication extends Application {
         mainKud.setMain(this);
         predictionsKud = new PredictionsKudeatzaile();
         predictionsKud.setMain(this);
+        preprocessKud = new PreprocessKudeatzaile();
+        preprocessKud.setMain(this);
+        fssKud = new FSSKudeatzaile();
+        //fssKud.setMain(this);
     }
 
     private void ikonoaJarri(){
