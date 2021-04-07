@@ -33,7 +33,7 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="btn_model" layoutX="139.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Moldel" textFill="WHITE" />
+      <Button fx:id="btn_model" layoutX="139.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Model" textFill="WHITE" />
       <Button fx:id="btn_output" layoutX="248.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Output" textFill="WHITE" />
       <Button fx:id="btn_train" layoutX="358.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Train" textFill="WHITE" />
       <Label fx:id="lbl_test" layoutX="27.0" layoutY="27.0" prefHeight="17.0" prefWidth="98.0" />
