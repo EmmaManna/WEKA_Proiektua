@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.FileInputStream;
@@ -14,10 +15,11 @@ import java.io.IOException;
 
 public class PredictionsApplication extends Application {
 
-    private Parent predictionsUI;
+    private Parent mainUI;
     private Stage stage;
     private Scene sceneMain;
 
+    private MainKudeatzaile mainKud;
     private PredictionsKudeatzaile predictionsKud;
 
     @Override
@@ -26,6 +28,9 @@ public class PredictionsApplication extends Application {
         this.pantailakKargatu();
         stage.setTitle("Text Mining");
         this.ikonoaJarri();
+
+        stage.initStyle(StageStyle.UNDECORATED);
+
         stage.setScene(sceneMain);
         stage.show();
 
@@ -33,10 +38,45 @@ public class PredictionsApplication extends Application {
 
     private void pantailakKargatu() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Main.fxml"));
-        predictionsUI = (Parent) loader.load();
-        predictionsKud = loader.getController();
+        kudeatzaileakKargatu();
+
+        Callback<Class<?>, Object> controllerFactory = type -> {
+            if (type == MainKudeatzaile.class) {
+                return mainKud ;
+            } else if (type == MainKudeatzaile.class) {
+                return mainKud;
+            } else if(type == PredictionsKudeatzaile.class) {
+                return predictionsKud;
+            }
+            else {// default behavior for controllerFactory:
+                try {
+                    return type.newInstance();
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                    throw new RuntimeException(exc); // fatal, just bail...
+                }
+            }
+        };
+
+        loader.setControllerFactory(controllerFactory);
+        mainUI = (Parent) loader.load();
+        sceneMain = new Scene(mainUI);
+
+        /*
+        mainUI = (Parent) loader.load();
+        mainKud = loader.getController();
+        mainKud.setMain(this);
+        sceneMain = new Scene(mainUI);
+
+         */
+    }
+
+    private void kudeatzaileakKargatu(){
+        //Aplikazioak erabiltzen dituen kudeatzaileak hasieratzen ditu
+        mainKud = new MainKudeatzaile();
+        mainKud.setMain(this);
+        predictionsKud = new PredictionsKudeatzaile();
         predictionsKud.setMain(this);
-        sceneMain = new Scene(predictionsUI);
     }
 
     private void ikonoaJarri(){

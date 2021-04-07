@@ -12,6 +12,12 @@ ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
 ehu/weka/Main.java
  ehu.weka.Main
+ehu/weka/uiControllers/FSSKudeatzaile.java
+ ehu.weka.uiControllers.FSSKudeatzaile
+ehu/weka/uiControllers/PreprocessKudeatzaile.java
+ ehu.weka.uiControllers.PreprocessKudeatzaile
+ehu/weka/uiControllers/MainKudeatzaile.java
+ ehu.weka.uiControllers.MainKudeatzaile
 ehu/weka/uiControllers/PredictionsApplication.java
  ehu.weka.uiControllers.PredictionsApplication
 ehu/weka/uiControllers/PredictionsKudeatzaile.java
