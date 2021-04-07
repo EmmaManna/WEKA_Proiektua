@@ -88,37 +88,36 @@ public class PredictionsKudeatzaile implements Initializable {
     @FXML
     void onClick(ActionEvent event) throws Exception {
         if(event.getSource()==btn_start){
-            if(testFile!=null && precitionsFile!=null && modelFile!=null){
-                String[] arguments = new String[] {testFile,modelFile,precitionsFile};
-                Evaluation eval = Predictions.main(arguments);
-                txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
-                txt_precision.setText("Precision: "+eval.pctCorrect());
-                txt_recall.setText("Recall: "+eval.pctCorrect());
-                txt_result.setText("Iragarpenak fitxategi honetan gorde dira: "+precitionsFile);
-            }
-            else if(txtA_tweet.getText()!=null){
-                fitxategiaEzabatu("testInstantzia.csv");
-                fitxategiaEzabatu("testInstantzia.arff");
-                testSortu();
-                String[] arguments1 = new String[] {"test","testInstantzia.csv","testInstantzia.arff"};
-                GetRaw.main(arguments1);
-
-                String bow = "1";
-                if(rdbtn_BoW.isSelected()){
-                    bow = "0";
+            if(precitionsFile!=null && modelFile!=null){
+                if(testFile!=null){
+                    String[] arguments = new String[] {testFile,modelFile,precitionsFile};
+                    Evaluation eval = Predictions.main(arguments);
+                    txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
+                    txt_precision.setText("Precision: "+eval.pctCorrect());
+                    txt_recall.setText("Recall: "+eval.pctCorrect());
+                    txt_result.setText("Iragarpenak fitxategi honetan gorde dira: "+precitionsFile);
                 }
+                else if(txtA_tweet.getText()!=null && trainFile!=null){
+                    String data = String.valueOf(System.currentTimeMillis());
+                    String path = precitionsFile.substring(0,precitionsFile.length()-lbl_output.getText().length());
+                    testSortu(data,path);
+                    String[] arguments1 = new String[] {"test",path+"\\testInstantzia"+data+".csv",path+"\\testInstantzia"+data+".arff"};
+                    GetRaw.main(arguments1);
 
-                String sparse = "no";
-                if(rdbtn_sparse.isSelected()){
-                    sparse = "yes";
-                }
+                    String bow = "1";
+                    if(rdbtn_BoW.isSelected()){
+                        bow = "0";
+                    }
 
-                fitxategiaEzabatu("testInstaintzia"+bow+sparse+".arff");
-                String[] arguments2 = new String[] {trainFile,"testInstantzia.arff",bow,sparse,"testInstaintzia"+bow+sparse+".arff"};
-                MakeCompatible.main(arguments2);
+                    String sparse = "no";
+                    if(rdbtn_sparse.isSelected()){
+                        sparse = "yes";
+                    }
 
-                if(precitionsFile!=null && modelFile!=null){
-                    String[] arguments = new String[] {"testInstaintzia"+bow+sparse+".arff",modelFile,precitionsFile};
+                    String[] arguments2 = new String[] {trainFile,path+"\\testInstantzia"+data+".arff",bow,sparse,path+"\\testInstaintzia"+bow+sparse+data+".arff"};
+                    MakeCompatible.main(arguments2);
+
+                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+".arff",modelFile,precitionsFile};
                     Evaluation eval = Predictions.main(arguments);
                     txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
                     txt_precision.setText("Precision: "+eval.pctCorrect());
@@ -139,15 +138,13 @@ public class PredictionsKudeatzaile implements Initializable {
                             txt_result.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
                             break;
                     }
-
                 }
                 else{
-                    txt_result.setText("Eredua irteera fitxategiak kargatu mesedez");
+                    txt_result.setText("Test fitxategi bat kargatu edo tweet bat idatzi mesedez");
                 }
-
             }
             else{
-                txt_result.setText("Fitxategi bat kargatu edo tweet bat idatzi mesedez");
+                txt_result.setText("Ereduaren eta iragarpenak egiteko fitxategiak kargatu mesedez");
             }
         }
         else if(event.getSource()==btn_arff){
@@ -181,33 +178,13 @@ public class PredictionsKudeatzaile implements Initializable {
         rdbtn_sparse.setSelected(true);
     }
 
-    private void testSortu() throws IOException {
-        FileWriter fw = new FileWriter("testInstantzia.csv");
+    private void testSortu(String data, String path) throws IOException {
+        FileWriter fw = new FileWriter(path+"\\testInstantzia"+data+".csv");
         fw.write("id,tweet\n");
         fw.write("0,"+txtA_tweet.getText());
         fw.close();
     }
 
-    private void fitxategiaEzabatu(String path){
-        try
-        {
-            System.out.println(System.getProperty("user.dir")+"\\"+path);
-            Files.deleteIfExists(Paths.get(System.getProperty("user.dir")+"\\"+path));
-        }
-        catch(NoSuchFileException e)
-        {
-            System.out.println("No such file/directory exists");
-        }
-        catch(DirectoryNotEmptyException e)
-        {
-            System.out.println("Directory is not empty.");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Invalid permissions.");
-        }
 
-        System.out.println("Deletion successful.");
-    }
 
 }
