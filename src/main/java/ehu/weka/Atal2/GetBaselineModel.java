@@ -1,7 +1,17 @@
 package ehu.weka.Atal2;
 
+import weka.classifiers.Evaluation;
+import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.functions.Logistic;
 import weka.core.Instances;
+import weka.core.SerializationHelper;
 import weka.core.converters.ConverterUtils;
+import weka.filters.Filter;
+import weka.filters.unsupervised.instance.Randomize;
+import weka.filters.unsupervised.instance.RemovePercentage;
+
+import java.io.FileWriter;
+import java.util.Random;
 
 public class GetBaselineModel {
 
@@ -30,9 +40,57 @@ public class GetBaselineModel {
             System.out.println("\tjava -jar GetBaselineModeal.jar <train.arff> <baseline.model> <kalitaterenEstimazioa.txt> ");
             System.exit(0);
         }
+            String inputPath = args[0];
+            String model = args[1];
+            String txt = args[2];
 
-        //Train kargatu
-        Instances train = datuakKargatu(args[0]);
+            //Train kargatu
+            Instances train = datuakKargatu(inputPath);
+
+            //Baseline modeloa sortu
+            Logistic logistic = new Logistic();
+            logistic.buildClassifier(train);
+
+            //modeloa gorde
+            SerializationHelper.write(model,logistic);
+
+            //ebaluatu eta estimazioa fitxategian gorde
+            FileWriter fw = new FileWriter(txt);
+
+
+            fw.write("/////////////////////////////KALITATEAREN ESTIMAZIOA////////////////////////////////\n\n\n");
+            //EZ-ZINTZOA
+            fw.write("----------------------EZ ZINTZOA----------------------\n\n");
+            Evaluation evalEZintzoa = new Evaluation(train);
+            evalEZintzoa.evaluateModel(logistic, train);
+            fw.write("\n"+evalEZintzoa.toClassDetailsString()+"\n");
+            fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
+            fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
+            //CROSS VALIDATION
+            fw.write("----------------------CROSS VALIDATION----------------------\n\n");
+            Evaluation eval10fCV = new Evaluation(train);
+            eval10fCV.crossValidateModel(logistic, train, 10, new Random(1));
+            fw.write("\n"+evalEZintzoa.toClassDetailsString()+"\n");
+            fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
+            fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
+            //HOLD-OUT 100 ALDIZ
+            fw.write("----------------------HOLD-OUT 100 ALDIZ----------------------\n\n");
+            Evaluation evalHoldOut = new Evaluation(train);
+            for(int i=0; i<100; i++) {
+                //Randomize
+                Instances randomData = randomize(train, i);
+
+                //Split Data
+                Instances testh = splitData(randomData,70,false);
+                Instances trainh = splitData(randomData,70,true);
+
+                //Ebaluatu
+                evalHoldOut.evaluateModel(logistic, testh);
+            }
+            fw.write("\n"+evalHoldOut.toClassDetailsString()+"\n");
+            fw.write("\n"+evalHoldOut.toSummaryString()+"\n");
+            fw.write("\n"+evalHoldOut.toMatrixString()+"\n");
+            fw.close();
     }
 
     public static Instances datuakKargatu(String path) throws Exception {
@@ -40,5 +98,24 @@ public class GetBaselineModel {
         Instances data = source.getDataSet();
         data.setClassIndex(data.numAttributes()-1);
         return data;
+    }
+
+    private static Instances randomize(Instances data, int i) throws Exception {
+        Randomize filter = new Randomize();
+        filter.setInputFormat(data);
+        filter.setRandomSeed(i);
+        Instances randomData = Filter.useFilter(data,filter);
+        randomData.setClassIndex(randomData.numAttributes()-1);
+        return randomData;
+    }
+
+    private static Instances splitData(Instances data, double percent, boolean invert) throws Exception {
+        RemovePercentage filterRemove = new RemovePercentage();
+        filterRemove.setInputFormat(data);
+        filterRemove.setPercentage(percent);
+        filterRemove.setInvertSelection(invert);
+        Instances split = Filter.useFilter(data,filterRemove);
+        split.setClassIndex(split.numAttributes()-1);
+        return split;
     }
 }
