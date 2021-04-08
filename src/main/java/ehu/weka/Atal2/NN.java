@@ -4,6 +4,7 @@ import ehu.weka.Proiektua;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instances;
+import weka.core.Utils;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.Randomize;
 import weka.filters.unsupervised.instance.RemovePercentage;
@@ -71,7 +72,7 @@ public class NN {
         //parametro optimoenak lortzeko
         String bestHiddenLayer = "";
         Double bestLR = 0.0;
-        Double bestPCtCorrect = 0.0;
+        Double bestFmeasure = 0.0;
 
         //learning rate desberdinak
         for( double lr = 0.1; lr < 0.5; lr = lr + 0.05){
@@ -120,14 +121,15 @@ public class NN {
                 //ebaluazioa egin
                 Evaluation eval = new Evaluation(train);
                 eval.evaluateModel(cls, test);
-                //System.out.println(eval.toSummaryString("\n=== Results ===\n",false));
+                System.out.println(eval.toSummaryString("\n=== Results ===\n",false));
                 //System.out.println(eval.toMatrixString());
 
-                double pctCorrect = eval.pctCorrect();
-                System.out.println("Accuracy: " + pctCorrect);
+                int klaseMinoritarioaIndex = Utils.maxIndex(data.attributeStats(data.classIndex()).nominalCounts);
+                double fMeasure = eval.fMeasure(klaseMinoritarioaIndex);
+                System.out.println("F-measure klase minoritarioarekiko: " + fMeasure);
 
-                if (pctCorrect > bestPCtCorrect){
-                    bestPCtCorrect = pctCorrect;
+                if (fMeasure > bestFmeasure){
+                    bestFmeasure = fMeasure;
                     bestHiddenLayer = hiddenLayer;
                     bestLR = lr;
                 }
