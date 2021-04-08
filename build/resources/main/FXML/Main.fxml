@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" prefHeight="450.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.weka.uiControllers.MainKudeatzaile">
+   <children>
+      <VBox prefHeight="450.0" prefWidth="284.0" style="-fx-background-color: #004F79;" stylesheets="@../fullpackstyling.css">
+         <children>
+            <Pane prefHeight="146.0" prefWidth="265.0">
+               <children>
+                  <Label layoutX="78.0" layoutY="56.0" text="Text Mining" textFill="WHITE">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="btn_preprocess" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onClick" prefHeight="68.0" prefWidth="300.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" text="Preprocessing" textFill="WHITE">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_fss" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onClick" prefHeight="68.0" prefWidth="305.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" text="FSS" textFill="WHITE">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_Predictions" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onClick" prefHeight="68.0" prefWidth="323.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" text="Predictions" textFill="WHITE">
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="anchor_predictions" layoutX="284.0" layoutY="41.0" minHeight="-Infinity" prefHeight="400.0" prefWidth="654.0" style="-fx-background-color: white;">
+         <fx:include fx:id="predictions" source="predictions.fxml" />
+      </AnchorPane>
+      <AnchorPane fx:id="anchor_fss" layoutX="284.0" layoutY="41.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="654.0" style="-fx-background-color: white;">
+         <fx:include fx:id="fss" source="fss.fxml" />
+      </AnchorPane>
+      <AnchorPane fx:id="anchor_preprocess" layoutX="284.0" layoutY="41.0" minHeight="-Infinity" prefHeight="400.0" prefWidth="654.0" style="-fx-background-color: white;">
+         <fx:include fx:id="preprocess" source="preprocessing.fxml" />
+      </AnchorPane>
+      <Button fx:id="btn_close" layoutX="915.0" layoutY="3.0" mnemonicParsing="false" onAction="#onClick" prefHeight="17.0" prefWidth="20.0" styleClass="cancel" stylesheets="@../fullpackstyling.css" text="X">
+      </Button>
+      <Button fx:id="btn_min" layoutX="892.0" layoutY="3.0" mnemonicParsing="false" onAction="#onClick" prefHeight="17.0" prefWidth="20.0" styleClass="minimize" stylesheets="@../fullpackstyling.css" text="_">
+      </Button>
+   </children>
+</AnchorPane>
