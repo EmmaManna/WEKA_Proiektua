@@ -1,0 +1,248 @@
+.button
+{
+    -fx-background-color : #004F79;
+}
+.button:hover
+{
+    -fx-background-color :  #007dc8 ;
+}
+.button:pressed
+{
+    -fx-background-color :  #007dc8 ;
+    border-left-color: #ffffff;
+}
+
+
+.buttonMenu
+{
+    -fx-background-color :  #004F79;
+}
+.buttonMenu:hover
+{
+    -fx-background-color :  #007dc8 ;
+}
+.buttonMenu:pressed
+{
+    -fx-background-color :  #007dc8 ;
+    border-left-color: #ffffff;
+}
+.buttonMenu:focused{
+    -fx-background-color: #007dc8;
+    -fx-border-color: #CDD1D6;
+    -fx-border-width: 0px 0px 0px 3px;
+}
+
+.cancel
+{
+   
+   -fx-background-color: #c1bdbd;
+  -fx-background-radius: 22;
+  -fx-border-radius: 22;
+  -fx-border-width: 1.1;
+  -fx-border-color: #444141;
+  -fx-padding: 0;
+  -fx-font-size: 0;
+  
+
+}
+
+
+.cancel:hover
+{
+    -fx-text-fill: black;
+    -fx-background-color : #DC143C ;
+    -fx-border-color: #444141;
+}
+.cancel:pressed
+{
+    -fx-text-fill: black;
+    -fx-background-color : #DC143C ;
+    -fx-border-color: #444141;
+}
+
+.minimize
+{
+
+    -fx-background-color: #c1bdbd;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-border-width: 1.1;
+    -fx-border-color: #444141;
+    -fx-padding: 0;
+    -fx-font-size: 0;
+
+
+}
+
+
+.minimize:hover
+{
+    -fx-text-fill: black;
+    -fx-background-color : #0272A6 ;
+    -fx-border-color: #444141;
+}
+.minimize:pressed
+{
+    -fx-text-fill: black;
+    -fx-background-color : #0272A6 ; ;
+    -fx-border-color: #444141;
+}
+
+.screenshot
+{
+    -fx-background-color : #c1bdbd;
+}
+.screenshot:hover
+{
+    -fx-background-color : #b0abab;
+}
+.screenshot:pressed
+{
+    -fx-background-color : #b0abab ;
+    border-left-color: #444141;
+}
+
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size : 20;
+    -fx-background-color:    #004F79;
+}
+.table-view .column-header .label{
+
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell{
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+                                                                                                                                                                                                                                     .table-row-cell:selected {
+    -fx-background-color:  rgb(127, 172, 243);
+}
+.table-row-cell:selected .text {
+    -fx-fill : white ;
+
+}
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.increment-button ,.decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+}
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:#E0E0E0;
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:#BEBEBE;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color:#888888;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color:#787878;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+
+/* chart properties */
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
+
+
+/*tab pane i guess*/
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-insets: 0, 0 0 1 0;
+    /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
+    -fx-background-color: #C0C0C0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #A9A9A9;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color:  #004F79;
+    -fx-font-weight: bold;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
+
+
+/*CheckBox style*/
+.check-box .box{
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+
+    -fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+    -fx-background-color:  #228B22;
+}
