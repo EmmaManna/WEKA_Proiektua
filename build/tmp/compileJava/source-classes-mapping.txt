@@ -18,15 +18,15 @@ ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
 ehu/weka/Atal1/MakeCompatible.java
  ehu.weka.Atal1.MakeCompatible
-ehu/weka/Atal2/FSS.java
- ehu.weka.Atal2.FSS
+ehu/weka/uiControllers/PredictionsKudeatzaile.java
+ ehu.weka.uiControllers.PredictionsKudeatzaile
 ehu/weka/Atal2/ParamOptimization.java
  ehu.weka.Atal2.ParamOptimization
 ehu/weka/uiControllers/PredictionsApplication.java
  ehu.weka.uiControllers.PredictionsApplication
-ehu/weka/Atal2/GetBaselineModel.java
- ehu.weka.Atal2.GetBaselineModel
 ehu/weka/Atal3/Predictions.java
  ehu.weka.Atal3.Predictions
-ehu/weka/uiControllers/PredictionsKudeatzaile.java
- ehu.weka.uiControllers.PredictionsKudeatzaile
+ehu/weka/Atal2/GetBaselineModel.java
+ ehu.weka.Atal2.GetBaselineModel
+ehu/weka/Atal2/FSS.java
+ ehu.weka.Atal2.FSS
