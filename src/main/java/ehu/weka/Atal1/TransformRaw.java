@@ -52,15 +52,10 @@ public class TransformRaw {
             if(vector.equals("0")){ //BoW
                 //StringToWordVector - BoW
                 data = stringToWordVector(data,false);
-                //AttributeSelection
-                data = selection(data);
             }
             else if(vector.equals("1")){ //TF·IDF
                 //StringToWordVector - TF·IDF
                 data = stringToWordVector(data,true);
-                //datuakGorde("C:\\Users\\emmam\\Desktop\\WEKA\\Proiektua\\Data\\trainTDIFSparseProba.arff",data);
-                //AttributeSelection
-                data = selection(data);
             }
             else{
                 System.out.println("Errorea: Bigarren parametroa ez da zuzena");
@@ -81,6 +76,10 @@ public class TransformRaw {
                 System.exit(0);
             }
 
+            //AttributeSelection
+            data = selection(data);
+            String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
+            datuakGorde(path,data);
         }
 
     }
