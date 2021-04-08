@@ -64,9 +64,9 @@ public class FSS {
 
         //3. Hiztegi bateragarria lortu
         //Hash-a sortu
-        HashMap<String, Integer> hiztegia = hashSortu(trainFSS);
+        HashMap<String, Integer> hiztegia = hashSortu("DictionaryRaw.txt",trainFSS);
         //Hiztegia gorde
-        dictionaryGorde("DictionaryRaw.txt",hiztegia,"DictionaryFSS.txt",trainFSS.numInstances());
+        dictionaryGorde(hiztegia,"DictionaryFSS.txt",trainFSS);
 
         String vector = args[2];
         String emaitza = args[3];
@@ -130,19 +130,14 @@ public class FSS {
         saver.writeBatch();
     }
 
-    public static HashMap<String,Integer> hashSortu(Instances data) throws IOException {
+    public static HashMap<String,Integer> hashSortu(String pathRaw, Instances data) throws IOException {
         HashMap<String, Integer> hiztegia = new HashMap();
+
         for(int i=0;i<data.numAttributes()-1;i++) {
             Attribute attrib = data.attribute(i);
             hiztegia.put(attrib.name(),1);
         }
-        return hiztegia;
-    }
 
-
-    public static void dictionaryGorde(String pathRaw, HashMap<String, Integer> hiztegia, String path, int docs) throws IOException {
-        FileWriter fw = new FileWriter(path);
-        fw.write("@@@numDocs="+docs+"@@@\n");
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(pathRaw));
@@ -152,15 +147,33 @@ public class FSS {
                 String atributua = lerroa[0];
                 Integer maiztasuna = Integer.parseInt(lerroa[1]);
                 if(hiztegia.containsKey(atributua)){
-                    fw.write(atributua+","+maiztasuna+"\n");
+                    hiztegia.put(atributua,maiztasuna);
                 }
                 contentLine = br.readLine();
             }
-            fw.close();
+
         } catch (IOException e) {
             e.printStackTrace();
 
         }
+
+        return hiztegia;
+    }
+
+
+    public static void dictionaryGorde(HashMap<String, Integer> hiztegia, String path, Instances data) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        fw.write("@@@numDocs="+data.numInstances()+"@@@\n");
+
+        for(int i=0; i<data.numAttributes()-1;i++){
+            String atributua = data.attribute(i).name();
+            if(hiztegia.containsKey(atributua)){
+                fw.write(atributua+","+hiztegia.get(atributua)+"\n");
+            }
+        }
+
+        fw.close();
+
     }
 
     private static Instances stringToNominal(Instances test) throws Exception {

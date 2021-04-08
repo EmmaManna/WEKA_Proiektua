@@ -87,7 +87,7 @@ public class PredictionsApplication extends Application {
         preprocessKud = new PreprocessKudeatzaile();
         preprocessKud.setMain(this);
         fssKud = new FSSKudeatzaile();
-        //fssKud.setMain(this);
+        fssKud.setMain(this);
     }
 
     private void ikonoaJarri(){

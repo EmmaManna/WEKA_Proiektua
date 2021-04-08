@@ -35,7 +35,7 @@ public class ParamOptimization {
             System.out.println("\t1- Entrenamendurako .arff fitxategiaren helbidea.");
             System.out.println("\t2- Parametro optimoak gordetzeko .txt fitxategiaren helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar ParamOptimization.jar  ");
+            System.out.println("\tjava -jar ParamOptimization.jar <train.arff> <outPath> ");
             System.exit(0);
         }
 
