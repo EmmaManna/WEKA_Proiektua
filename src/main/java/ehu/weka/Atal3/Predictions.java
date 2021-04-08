@@ -17,7 +17,7 @@ public class Predictions {
      *	@author Xabi Dermit, Jon Gondra eta Emma Manna
      */
 
-    public static void main(String[] args) throws Exception {
+    public static Evaluation main(String[] args) throws Exception {
 
         if (args.length != 3) {
             System.out.println("Programaren helburua:");
@@ -66,7 +66,7 @@ public class Predictions {
 
         fw.close();
 
-
+        return eval;
 
     }
 
