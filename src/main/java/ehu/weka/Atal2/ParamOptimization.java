@@ -25,15 +25,17 @@ public class ParamOptimization {
             System.out.println("Programaren helburua:");
             System.out.println("\tEreduaren parametro optimoak ekortu");
             System.out.println("\nAurrebaldintzak:");
+            System.out.println("\t1- Lehenengo parametro bezala entrenamendurako erabiliko den train.arff fitxategiaren helbidea.");
+            System.out.println("\t2- Bigarren parametro bezala lortu diren parametro optimoak gordetzeko .txt fitxategiaren helbidea.");
 
             System.out.println("\nPost baldintza:");
-
+            System.out.println("\tLortu diren parametro optimoak gordetzeko .txt fitxategiaren helbidea.");
             System.out.println("\nArgumentuen zerrenda eta deskribapena:");
 
             System.out.println("\t1- Entrenamendurako .arff fitxategiaren helbidea.");
             System.out.println("\t2- Parametro optimoak gordetzeko .txt fitxategiaren helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar ParamOptimization.jar  ");
+            System.out.println("\tjava -jar ParamOptimization.jar <train.arff> <outPath> ");
             System.exit(0);
         }
 
@@ -52,25 +54,20 @@ public class ParamOptimization {
         hiddenLayers.add("25,12,4");
         hiddenLayers.add("25,25");
         hiddenLayers.add("50,25,12");
-        hiddenLayers.add("100,52,25,10");
         hiddenLayers.add("80,40");
         hiddenLayers.add("150");
+        hiddenLayers.add("100");
+        hiddenLayers.add("200");
         hiddenLayers.add("150,100,50");
-        hiddenLayers.add("80,40,20,10");
         hiddenLayers.add("157,75,25");
         hiddenLayers.add("50,100,50");
-        hiddenLayers.add("25,50,100,50,25");
         hiddenLayers.add("25,75,25");
         hiddenLayers.add("100,100,100");
         hiddenLayers.add("75,50,25,12");
         hiddenLayers.add("20,40,20");
-        hiddenLayers.add("15,15,15");
-        hiddenLayers.add("35,70,35");
         hiddenLayers.add("12,25,12");
-        hiddenLayers.add("30,60,90,60,30");
         hiddenLayers.add("40,20,10,5");
         hiddenLayers.add("60,40,20");
-        hiddenLayers.add("150,125,100,75,50,25");
         hiddenLayers.add("125,75,25");
         hiddenLayers.add("75,125,75");
         hiddenLayers.add("30,45,30,15");
@@ -78,7 +75,6 @@ public class ParamOptimization {
         hiddenLayers.add("25,50,75,25");
         hiddenLayers.add("200,100,50");
         hiddenLayers.add("300,200,100");
-        hiddenLayers.add("200, 150, 100, 50, 25");
         hiddenLayers.add("120, 60");
         hiddenLayers.add("90, 45");
         hiddenLayers.add("150,75");

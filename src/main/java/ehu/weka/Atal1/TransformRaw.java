@@ -66,20 +66,25 @@ public class TransformRaw {
             if(emaitza.equals("yes")){ //Sparse
                 //Defektuz Sparse da orduan zuzenean gordetzen dugu
                 datuakGorde(outPath,data);
+                //AttributeSelection
+                data = selection(data);
+                String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
+                datuakGorde(path,data);
             }
             else if(emaitza.equals("no")){ //NonSparse
                 Instances nonSparseData = nonSparse(data);
                 datuakGorde(outPath,nonSparseData);
+                //AttributeSelection
+                nonSparseData = selection(nonSparseData);
+                String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
+                datuakGorde(path,nonSparseData);
             }
             else{
                 System.out.println("Errorea: Hirugarren parametroa ez da zuzena");
                 System.exit(0);
             }
 
-            //AttributeSelection
-            data = selection(data);
-            String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
-            datuakGorde(path,data);
+
         }
 
     }

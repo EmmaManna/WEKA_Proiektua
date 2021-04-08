@@ -83,7 +83,7 @@ public class MakeCompatible {
             System.exit(0);
         }
         //Klasea azken atributuan jarri
-        vectorTest = reorder(vectorTest);
+        //vectorTest = reorder(vectorTest);
         datuakGorde(args[4],vectorTest);
         System.out.println("FINIKITO");
 
