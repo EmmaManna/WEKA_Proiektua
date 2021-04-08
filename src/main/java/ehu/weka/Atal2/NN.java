@@ -1,9 +1,9 @@
-package ehu.weka;
+package ehu.weka.Atal2;
 
+import ehu.weka.Proiektua;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instances;
-import weka.core.Utils;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.Randomize;
 import weka.filters.unsupervised.instance.RemovePercentage;
@@ -16,16 +16,20 @@ public class NN {
 
     // Sare neuronalaren klasea (MultiLayerPerceptron)
 
-    private Proiektua p = Proiektua.getInstance();
+    private static Proiektua p = Proiektua.getInstance();
 
-    public void sareaEntrenatu(String pDataPath, String pEvalDataPath, String pModeloaGordePath, String pParametroakGordePath) throws Exception {
+    public static void main(String[] args) throws Exception {
+        sareaEntrenatu("/home/xabi/IdeaProjects/WEKA_Proiektua/src/main/java/ehu/weka/Resources/trainTDIFNonSparse.arff",
+                "/home/xabi/IdeaProjects/WEKA_Proiektua/src/main/java/ehu/weka/Resources/test.arff",
+                "ehu/weka/Resources/sailkatzailea.model","ehu/weka/Resources/parametroEkorketa.txt");
+    }
+    public static void sareaEntrenatu(String pDataPath, String pEvalDataPath, String pModeloaGordePath, String pParametroakGordePath) throws Exception {
 
         //entrenamendurako datuak kargatu
         Instances data = p.datuakKargatu(pDataPath);
 
         //hidden layers desberdinak
         ArrayList<String> hiddenLayers = new ArrayList<String>();
-        hiddenLayers.add("100");
         hiddenLayers.add("100,50");
         hiddenLayers.add("50,25,12");
         hiddenLayers.add("12,6,2");
@@ -55,18 +59,7 @@ public class NN {
         hiddenLayers.add("75,125,75");
         hiddenLayers.add("30,45,30,15");
         hiddenLayers.add("80,60,40,20");
-        hiddenLayers.add("90");
-        hiddenLayers.add("80");
-        hiddenLayers.add("70");
-        hiddenLayers.add("60");
-        hiddenLayers.add("50");
-        hiddenLayers.add("40");
-        hiddenLayers.add("30");
-        hiddenLayers.add("20");
-        hiddenLayers.add("10");
         hiddenLayers.add("25,50,75,25");
-        hiddenLayers.add("200");
-        hiddenLayers.add("300");
         hiddenLayers.add("200,100,50");
         hiddenLayers.add("300,200,100");
         hiddenLayers.add("200, 150, 100, 50, 25");
@@ -81,7 +74,7 @@ public class NN {
         Double bestPCtCorrect = 0.0;
 
         //learning rate desberdinak
-        for( double lr = 0.01; lr < 0.5; lr = lr + 0.01){
+        for( double lr = 0.1; lr < 0.5; lr = lr + 0.05){
             for (String hiddenLayer : hiddenLayers){
 
                 //Sailkatzailea sortu
@@ -90,9 +83,10 @@ public class NN {
                 //parametroak finkatu
                 cls.setHiddenLayers(hiddenLayer);
                 cls.setLearningRate(lr);
+                cls.setTrainingTime(100);  //number of epochs
 
                 //parametroak printeatu
-                System.out.println("Learning Rate: " + lr + "\n");
+                System.out.println("Learning Rate: " + lr);
                 System.out.println("Hidden Layers: " + hiddenLayer + "\n\n");
 
                 //instantziak nahastu
@@ -104,7 +98,7 @@ public class NN {
 
                 //train multzoak lortu
 
-                Instances train =null;
+                Instances train;
                 RemovePercentage rmpct = new RemovePercentage();
                 rmpct.setInvertSelection(false);
                 rmpct.setPercentage(33);
@@ -113,7 +107,7 @@ public class NN {
 
 
                 //test multzoa lortu
-                Instances test = null;
+                Instances test;
                 RemovePercentage rmpct2 = new RemovePercentage();
                 rmpct2.setInvertSelection(true);
                 rmpct2.setPercentage(33);
@@ -129,11 +123,16 @@ public class NN {
                 //System.out.println(eval.toSummaryString("\n=== Results ===\n",false));
                 //System.out.println(eval.toMatrixString());
 
-                if (eval.pctCorrect() > bestPCtCorrect){
-                    bestPCtCorrect = eval.pctCorrect();
+                double pctCorrect = eval.pctCorrect();
+                System.out.println("Accuracy: " + pctCorrect);
+
+                if (pctCorrect > bestPCtCorrect){
+                    bestPCtCorrect = pctCorrect;
                     bestHiddenLayer = hiddenLayer;
                     bestLR = lr;
                 }
+
+                System.out.println("\n\n");
 
             }
         }
@@ -154,7 +153,7 @@ public class NN {
 
         //sailkatzaile erreala sortu
         sailkatzailea.buildClassifier(data);
-
+/*
         //ebaluaziorako datuak kargatu
         Instances evalData = p.datuakKargatu(pEvalDataPath);
 
@@ -163,7 +162,7 @@ public class NN {
         evaluazioFinala.evaluateModel(sailkatzailea, evalData);
         System.out.println(evaluazioFinala.toSummaryString("\n=== Results ===\n",false));
         System.out.println(evaluazioFinala.toMatrixString());
-
+*/
         //sailkatzailea gorde
         weka.core.SerializationHelper.write(pModeloaGordePath,sailkatzailea);
 
