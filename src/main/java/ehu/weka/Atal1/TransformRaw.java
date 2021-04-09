@@ -66,7 +66,6 @@ public class TransformRaw {
             if(emaitza.equals("yes")){ //Sparse
                 //Defektuz Sparse da orduan zuzenean gordetzen dugu
                 datuakGorde(outPath,data);
-                //AttributeSelection
                 data = selection(data);
                 String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
                 datuakGorde(path,data);
@@ -74,7 +73,6 @@ public class TransformRaw {
             else if(emaitza.equals("no")){ //NonSparse
                 Instances nonSparseData = nonSparse(data);
                 datuakGorde(outPath,nonSparseData);
-                //AttributeSelection
                 nonSparseData = selection(nonSparseData);
                 String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
                 datuakGorde(path,nonSparseData);
@@ -114,7 +112,7 @@ public class TransformRaw {
             options[0] = "-R";
             options[1] = "first-last";
             options[2] = "-W";
-            options[3] = "1000";
+            options[3] = "2000";
             options[4] = "-prune-rate";
             options[5] = "-1.0";
             options[6] = "-C";
@@ -130,7 +128,7 @@ public class TransformRaw {
             options[0] = "-R";
             options[1] = "first-last";
             options[2] = "-W";
-            options[3] = "1000";
+            options[3] = "2000";
             options[4] = "-prune-rate";
             options[5] = "-1.0";
             options[6] = "-N";

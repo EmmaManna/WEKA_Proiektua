@@ -5,6 +5,7 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instances;
 import weka.core.Utils;
+import weka.core.converters.ConverterUtils;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.Randomize;
 import weka.filters.unsupervised.instance.RemovePercentage;
@@ -42,43 +43,16 @@ public class ParamOptimization {
         // --------------------- PARAMETRO EKORKETAREKIN HASI --------------------------------------
 
         //entrenamendurako datuak kargatu
-        Instances data = Proiektua.getInstance().datuakKargatu(args[0]);
+        Instances data = datuakKargatu(args[0]);
         int klaseMinoritarioaIndex = Utils.maxIndex(data.attributeStats(data.classIndex()).nominalCounts);
         System.out.println("Klase minoritarioa: " + data.attribute(data.classIndex()).value(klaseMinoritarioaIndex));
 
         //hidden layers desberdinak
         ArrayList<String> hiddenLayers = new ArrayList<String>();
-        hiddenLayers.add("100,50");
         hiddenLayers.add("50,25,12");
-        hiddenLayers.add("12,6,2");
-        hiddenLayers.add("25,12,4");
-        hiddenLayers.add("25,25");
-        hiddenLayers.add("50,25,12");
-        hiddenLayers.add("80,40");
-        hiddenLayers.add("150");
         hiddenLayers.add("100");
-        hiddenLayers.add("200");
         hiddenLayers.add("150,100,50");
-        hiddenLayers.add("157,75,25");
-        hiddenLayers.add("50,100,50");
-        hiddenLayers.add("25,75,25");
-        hiddenLayers.add("100,100,100");
-        hiddenLayers.add("75,50,25,12");
-        hiddenLayers.add("20,40,20");
-        hiddenLayers.add("12,25,12");
-        hiddenLayers.add("40,20,10,5");
-        hiddenLayers.add("60,40,20");
-        hiddenLayers.add("125,75,25");
-        hiddenLayers.add("75,125,75");
-        hiddenLayers.add("30,45,30,15");
-        hiddenLayers.add("80,60,40,20");
-        hiddenLayers.add("25,50,75,25");
-        hiddenLayers.add("200,100,50");
-        hiddenLayers.add("300,200,100");
-        hiddenLayers.add("120, 60");
-        hiddenLayers.add("90, 45");
-        hiddenLayers.add("150,75");
-        hiddenLayers.add("110,55");
+        hiddenLayers.add("90,45");
 
         //parametro optimoenak lortzeko
         String bestHiddenLayer = "";
@@ -88,11 +62,11 @@ public class ParamOptimization {
         //--------------------------- HOLD OUT ---------------------------------------------
         int iterazioKop = 1;
         //learning rate desberdinak
-        for(double lr = 0.1; lr < 0.5; lr = lr + 0.05){
+        for(double lr = 0.1; lr < 0.5; lr = lr + 0.1){
             for (String hiddenLayer : hiddenLayers){
 
                 System.out.println("#############################################################################");
-                System.out.println(iterazioKop + ". ITERAZIOA");
+                System.out.println(iterazioKop + ". ITERAZIOA "+java.time.LocalDateTime.now().toString());
                 //parametroak printeatu
                 System.out.println("\tLearning Rate: " + lr);
                 System.out.println("\tHidden Layers: " + hiddenLayer + "\n\n");
@@ -155,11 +129,17 @@ public class ParamOptimization {
         File file = new File(args[1]);
         FileWriter fw = new FileWriter(file);
 
-        fw.write("Best Hidden Layer configuration: " + bestHiddenLayer);
+        fw.write("Best Hidden Layer configuration: " + bestHiddenLayer+"\n");
         fw.write("Best Learning Rate configuration: " + bestLR);
 
         fw.flush();
         fw.close();
 
+    }
+    public static Instances datuakKargatu(String path) throws Exception {
+        ConverterUtils.DataSource source = new ConverterUtils.DataSource(path);
+        Instances data = source.getDataSet();
+        data.setClassIndex(data.numAttributes()-1);
+        return data;
     }
 }

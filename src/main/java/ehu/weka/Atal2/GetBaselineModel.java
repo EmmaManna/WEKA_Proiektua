@@ -56,8 +56,6 @@ public class GetBaselineModel {
 
             //ebaluatu eta estimazioa fitxategian gorde
             FileWriter fw = new FileWriter(txt);
-
-
             fw.write("/////////////////////////////KALITATEAREN ESTIMAZIOA////////////////////////////////\n\n\n");
             //EZ-ZINTZOA
             fw.write("----------------------EZ ZINTZOA----------------------\n\n");
