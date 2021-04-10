@@ -130,7 +130,16 @@ public class ParamOptimization {
         FileWriter fw = new FileWriter(file);
 
         fw.write("Best Hidden Layer configuration: " + bestHiddenLayer+"\n");
-        fw.write("Best Learning Rate configuration: " + bestLR);
+        fw.write("Best Learning Rate" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                " configuration: " + bestLR);
 
         fw.flush();
         fw.close();

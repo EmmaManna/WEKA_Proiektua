@@ -1,32 +1,32 @@
-ehu/weka/Atal2/GetModel.java
- ehu.weka.Atal2.GetModel
-ehu/weka/Proiektua.java
- ehu.weka.Proiektua
+ehu/weka/uiControllers/PreprocessKudeatzaile.java
+ ehu.weka.uiControllers.PreprocessKudeatzaile
 ehu/weka/uiControllers/MainKudeatzaile.java
  ehu.weka.uiControllers.MainKudeatzaile
+ehu/weka/Proiektua.java
+ ehu.weka.Proiektua
 ehu/weka/Atal2/NN.java
  ehu.weka.Atal2.NN
 ehu/weka/uiControllers/FSSKudeatzaile.java
  ehu.weka.uiControllers.FSSKudeatzaile
 ehu/weka/uiControllers/PredictionsApplication.java
  ehu.weka.uiControllers.PredictionsApplication
+ehu/weka/Atal2/GetBaselineModel.java
+ ehu.weka.Atal2.GetBaselineModel
 ehu/weka/Atal1/GetRaw.java
  ehu.weka.Atal1.GetRaw
 ehu/weka/Atal1/TransformRaw.java
  ehu.weka.Atal1.TransformRaw
-ehu/weka/Atal1/MakeCompatible.java
- ehu.weka.Atal1.MakeCompatible
 ehu/weka/uiControllers/PredictionsKudeatzaile.java
  ehu.weka.uiControllers.PredictionsKudeatzaile
-ehu/weka/Atal2/FSS.java
- ehu.weka.Atal2.FSS
-ehu/weka/Atal2/GetBaselineModel.java
- ehu.weka.Atal2.GetBaselineModel
 ehu/weka/Atal3/Predictions.java
  ehu.weka.Atal3.Predictions
-ehu/weka/Main.java
- ehu.weka.Main
-ehu/weka/uiControllers/PreprocessKudeatzaile.java
- ehu.weka.uiControllers.PreprocessKudeatzaile
+ehu/weka/Atal2/FSS.java
+ ehu.weka.Atal2.FSS
 ehu/weka/Atal2/ParamOptimization.java
  ehu.weka.Atal2.ParamOptimization
+ehu/weka/Main.java
+ ehu.weka.Main
+ehu/weka/Atal1/MakeCompatible.java
+ ehu.weka.Atal1.MakeCompatible
+ehu/weka/Atal2/GetModel.java
+ ehu.weka.Atal2.GetModel
