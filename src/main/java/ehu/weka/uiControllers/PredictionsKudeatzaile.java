@@ -2,6 +2,7 @@ package ehu.weka.uiControllers;
 
 import ehu.weka.Atal1.GetRaw;
 import ehu.weka.Atal1.MakeCompatible;
+import ehu.weka.Atal2.FSS;
 import ehu.weka.Atal3.Predictions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -109,10 +110,10 @@ public class PredictionsKudeatzaile implements Initializable {
                         sparse = "yes";
                     }
 
-                    String[] arguments2 = new String[] {trainFile,path+"\\testInstantzia"+data+".arff",bow,sparse,path+"\\testInstaintzia"+bow+sparse+data+".arff"};
-                    MakeCompatible.main(arguments2);
+                    String[] arguments2 = new String[] {trainFile,path+"\\testInstantzia"+data+".arff",bow,sparse,path+"\\trainInstaintzia"+bow+sparse+data+"_InfoGain.arff",path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff"};
+                    FSS.main(arguments2);
 
-                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+".arff",modelFile,precitionsFile};
+                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff",modelFile,precitionsFile};
                     Evaluation eval = Predictions.main(arguments);
                     txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
                     txt_precision.setText("Precision: "+eval.pctCorrect());
