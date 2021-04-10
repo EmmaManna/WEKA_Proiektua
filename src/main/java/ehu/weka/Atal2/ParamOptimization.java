@@ -44,7 +44,7 @@ public class ParamOptimization {
 
         //entrenamendurako datuak kargatu
         Instances data = datuakKargatu(args[0]);
-        int klaseMinoritarioaIndex = Utils.maxIndex(data.attributeStats(data.classIndex()).nominalCounts);
+        int klaseMinoritarioaIndex = Utils.minIndex(data.attributeStats(data.classIndex()).nominalCounts);
         System.out.println("Klase minoritarioa: " + data.attribute(data.classIndex()).value(klaseMinoritarioaIndex));
 
         //hidden layers desberdinak
