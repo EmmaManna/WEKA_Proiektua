@@ -98,9 +98,9 @@ public class GetModel {
         System.out.println("\t10 FOLD CROSS VALIDATION ebaluazioa hasten...");
         Evaluation eval10fCV = new Evaluation(train);
         eval10fCV.crossValidateModel(cls, train, 10, new Random(1));
-        fw.write("\n"+evalEZintzoa.toClassDetailsString()+"\n");
-        fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
-        fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
+        fw.write("\n"+eval10fCV.toClassDetailsString()+"\n");
+        fw.write("\n"+eval10fCV.toSummaryString()+"\n");
+        fw.write("\n"+eval10fCV.toMatrixString()+"\n");
         System.out.println("\t10 FOLD CROSS VALIDATION ebaluazioa eginda");
         //HOLD-OUT 100 ALDIZ
         fw.write("----------------------HOLD-OUT 100 ALDIZ----------------------\n\n");

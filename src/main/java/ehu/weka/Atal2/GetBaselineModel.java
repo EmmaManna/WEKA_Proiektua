@@ -68,9 +68,9 @@ public class GetBaselineModel {
             fw.write("----------------------CROSS VALIDATION----------------------\n\n");
             Evaluation eval10fCV = new Evaluation(train);
             eval10fCV.crossValidateModel(logistic, train, 10, new Random(1));
-            fw.write("\n"+evalEZintzoa.toClassDetailsString()+"\n");
-            fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
-            fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
+            fw.write("\n"+eval10fCV.toClassDetailsString()+"\n");
+            fw.write("\n"+eval10fCV.toSummaryString()+"\n");
+            fw.write("\n"+eval10fCV.toMatrixString()+"\n");
             //HOLD-OUT 100 ALDIZ
             fw.write("----------------------HOLD-OUT 100 ALDIZ----------------------\n\n");
             Evaluation evalHoldOut = new Evaluation(train);
