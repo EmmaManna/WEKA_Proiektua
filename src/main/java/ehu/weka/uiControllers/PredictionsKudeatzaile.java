@@ -1,7 +1,6 @@
 package ehu.weka.uiControllers;
 
 import ehu.weka.Atal1.GetRaw;
-import ehu.weka.Atal1.MakeCompatible;
 import ehu.weka.Atal2.FSS;
 import ehu.weka.Atal3.Predictions;
 import javafx.event.ActionEvent;
@@ -26,6 +25,7 @@ public class PredictionsKudeatzaile implements Initializable {
     private String modelFile;
     private String precitionsFile;
     private String trainFile;
+    private String trainFSS;
 
     public void setMain(PredictionsApplication main) {
         this.mainApp = main;
@@ -43,15 +43,6 @@ public class PredictionsKudeatzaile implements Initializable {
 
     @FXML
     private Button btn_start;
-
-    @FXML
-    private Text txt_accuracy;
-
-    @FXML
-    private Text txt_precision;
-
-    @FXML
-    private Text txt_recall;
 
     @FXML
     private Button btn_model;
@@ -80,20 +71,23 @@ public class PredictionsKudeatzaile implements Initializable {
     @FXML
     private RadioButton rdbtn_sparse;
 
+    @FXML
+    private Button btn_TrainFSS;
+
+    @FXML
+    private Label lbl_trainFSS;
+
 
     @FXML
     void onClick(ActionEvent event) throws Exception {
         if(event.getSource()==btn_start){
-            if(precitionsFile!=null && modelFile!=null){
+            if(precitionsFile!=null && modelFile!=null && trainFile!=null){
                 if(testFile!=null){
-                    String[] arguments = new String[] {testFile,modelFile,precitionsFile};
-                    Evaluation eval = Predictions.main(arguments);
-                    txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
-                    txt_precision.setText("Precision: "+eval.pctCorrect());
-                    txt_recall.setText("Recall: "+eval.pctCorrect());
+                    String[] arguments = new String[] {testFile,trainFile,modelFile,precitionsFile};
+                    Predictions.main(arguments);
                     txt_result.setText("Iragarpenak fitxategi honetan gorde dira: "+precitionsFile);
                 }
-                else if(txtA_tweet.getText()!=null && trainFile!=null){
+                else if(txtA_tweet.getText()!=null && btn_TrainFSS!=null){
                     String data = String.valueOf(System.currentTimeMillis());
                     String path = precitionsFile.substring(0,precitionsFile.length()-lbl_output.getText().length());
                     testSortu(data,path);
@@ -110,14 +104,12 @@ public class PredictionsKudeatzaile implements Initializable {
                         sparse = "yes";
                     }
 
-                    String[] arguments2 = new String[] {trainFile,path+"\\testInstantzia"+data+".arff",bow,sparse,path+"\\trainInstaintzia"+bow+sparse+data+"_InfoGain.arff",path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff"};
+                    String[] arguments2 = new String[] {trainFSS,path+"\\testInstantzia"+data+".arff",bow,sparse,path+"\\trainInstaintzia"+bow+sparse+data+"_InfoGain.arff",path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff"};
                     FSS.main(arguments2);
 
-                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff",modelFile,precitionsFile};
+                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff",trainFile,modelFile,precitionsFile};
                     Evaluation eval = Predictions.main(arguments);
-                    txt_accuracy.setText("Accuracy: "+eval.pctCorrect());
-                    txt_precision.setText("Precision: "+eval.pctCorrect());
-                    txt_recall.setText("Recall: "+eval.pctCorrect());
+
 
                     double predicted = eval.predictions().get(0).predicted();
                     switch ((int)predicted){
@@ -134,13 +126,18 @@ public class PredictionsKudeatzaile implements Initializable {
                             txt_result.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
                             break;
                     }
+
+
+                }
+                else if(btn_TrainFSS == null){
+                    txt_result.setText("FSS egin ahal izateko Train fitxategia kargatu mesedez");
                 }
                 else{
                     txt_result.setText("Test fitxategi bat kargatu edo tweet bat idatzi mesedez");
                 }
             }
             else{
-                txt_result.setText("Ereduaren eta iragarpenak egiteko fitxategiak kargatu mesedez");
+                txt_result.setText("Ereduaren, entrenamendu multzoaren eta iragarpenak egiteko fitxategiak kargatu mesedez");
             }
         }
         else if(event.getSource()==btn_arff){
@@ -166,6 +163,13 @@ public class PredictionsKudeatzaile implements Initializable {
             trainFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
             String[] split = trainFile.split("\\\\");
             lbl_train.setText(split[split.length-1]);
+        }
+
+        else if(event.getSource()==btn_TrainFSS){
+            FileChooser fileChooser = new FileChooser();
+            trainFSS = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
+            String[] split = trainFSS.split("\\\\");
+            lbl_trainFSS.setText(split[split.length-1]);
         }
     }
 

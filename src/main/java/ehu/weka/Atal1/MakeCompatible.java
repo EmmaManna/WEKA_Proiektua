@@ -85,7 +85,7 @@ public class MakeCompatible {
         //Klasea azken atributuan jarri
         //vectorTest = reorder(vectorTest);
         datuakGorde(args[4],vectorTest);
-        System.out.println("FINIKITO");
+        System.out.println("MakeCompatible Bukatu du");
 
     }
 

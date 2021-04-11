@@ -23,7 +23,7 @@ public class GetModel {
 
     public static void main(String[] args) throws Exception {
 
-        if (args.length != 5) {
+        if (args.length != 4) {
             System.out.println("Programaren helburua:");
             System.out.println("\tModeloa sortu MultiLayerPerceptron erabiliz eta bere kalitatearen estimazioa lortu");
             System.out.println("\nAurrebaldintzak:");
@@ -31,7 +31,6 @@ public class GetModel {
             System.out.println("\t2- Bigarren parametro bezala eredu iragarlearen .model fitxategia gordetzeko path-a");
             System.out.println("\t3- Hirugarren parametro bezala kalitatearen estimazioa gordetzeko .txt fitxategiaren path-a.");
             System.out.println("\t4- Laugarren parametro bezala parametro egokiak gordetzen dituen .txt fitxategiaren path-a.");
-            System.out.println("\t5- Bostgarren parametro bezala test.arff fitxategiaren path-a.");
             System.out.println("\nPost baldintza:");
             System.out.println("\t1- Hirugarren parametroan adierazitako helbidean sortutako .txt fitxategia gordeko da.");
             System.out.println("\nArgumentuen zerrenda eta deskribapena:");
@@ -39,9 +38,8 @@ public class GetModel {
             System.out.println("\t2- Irteerako eredu iragalearen MultiLayerPerceptron.model fitxategiaren helbidea");
             System.out.println("\t3- Irteerako .txt fitxategiaren helbidea.");
             System.out.println("\t4- Parametro egokiak gordeta dituen .txt fitxategiaren path-a.");
-            System.out.println("\t5- Sarrerako test.arff fitxategiaren helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar GetModel.jar <train.arff> <MultiLayerPerceptron.model> <MPKalitateEstimazioa.txt> ");
+            System.out.println("\tjava -jar GetModel.jar <train.arff> <MultiLayerPerceptron.model> <MPKalitateEstimazioa.txt> <optimalParameters.txt>");
             System.exit(0);
         }
 
