@@ -48,7 +48,6 @@ public class GetModel {
         String pathModel = args[1];
         String emaitzakPath = args[2];
         File parametroOptimoak = new File(args[3]);
-        Instances test = datuakKargatu(args[4]);
 
         //parametroak lortu
         String hiddenLayer = null;
