@@ -10,37 +10,24 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.weka.uiControllers.PredictionsKudeatzaile">
    <children>
-      <TextArea fx:id="txtA_tweet" layoutX="21.0" layoutY="94.0" prefHeight="87.0" prefWidth="558.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" />
+      <TextArea fx:id="txtA_tweet" layoutX="21.0" layoutY="156.0" prefHeight="87.0" prefWidth="558.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" />
       <Button fx:id="btn_arff" layoutX="27.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="98.0" styleClass="buttonMenu" stylesheets="@../fullpackstyling.css" text="Upload Test" textFill="WHITE" />
-      <Text fx:id="txt_result" layoutX="118.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="364.1366996765137">
+      <Text fx:id="txt_result" layoutX="118.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="364.1366996765137">
          <font>
             <Font size="22.0" />
          </font>
       </Text>
       <Button fx:id="btn_start" layoutX="470.0" layoutY="343.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="98.0" stylesheets="@../fullpackstyling.css" text="Start" textFill="WHITE" />
-      <Text fx:id="txt_accuracy" layoutX="31.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accuracy:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="txt_precision" layoutX="31.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precision:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="txt_recall" layoutX="31.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recall:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
       <Button fx:id="btn_model" layoutX="139.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Model" textFill="WHITE" />
       <Button fx:id="btn_output" layoutX="248.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Output" textFill="WHITE" />
-      <Button fx:id="btn_train" layoutX="358.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Train" textFill="WHITE" />
+      <Button fx:id="btn_train" layoutX="358.0" layoutY="36.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Train" textFill="WHITE" />
       <Label fx:id="lbl_test" layoutX="27.0" layoutY="27.0" prefHeight="17.0" prefWidth="98.0" />
       <Label fx:id="lbl_model" layoutX="139.0" layoutY="27.0" prefHeight="17.0" prefWidth="95.0" />
       <Label fx:id="lbl_output" layoutX="248.0" layoutY="27.0" prefHeight="17.0" prefWidth="95.0" />
-      <Label fx:id="lbl_train" layoutX="358.0" layoutY="27.0" prefHeight="17.0" prefWidth="84.0" />
+      <Label fx:id="lbl_train" layoutX="358.0" layoutY="11.0" prefHeight="17.0" prefWidth="84.0" />
       <RadioButton fx:id="rdbtn_BoW" layoutX="470.0" layoutY="59.0" mnemonicParsing="false" text="BoW" />
       <RadioButton fx:id="rdbtn_sparse" layoutX="470.0" layoutY="36.0" mnemonicParsing="false" text="Sparse" />
+      <Button fx:id="btn_TrainFSS" layoutX="358.0" layoutY="76.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="84.0" stylesheets="@../fullpackstyling.css" text="TrainFSS" textFill="WHITE" />
+      <Label fx:id="lbl_trainFSS" layoutX="358.0" layoutY="112.0" prefHeight="17.0" prefWidth="84.0" />
    </children>
 </AnchorPane>
