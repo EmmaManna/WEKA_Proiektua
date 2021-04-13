@@ -1,6 +1,5 @@
 package ehu.weka.uiControllers;
 
-import ehu.weka.Atal1.MakeCompatible;
 import ehu.weka.Atal2.FSS;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,22 +49,26 @@ public class FSSKudeatzaile implements Initializable {
 
     @FXML
     void onClick(ActionEvent event) throws Exception {
-        if(event.getSource()==btn_start){
-            if(trainFile!=null && testFile!=null){
+        if(event.getSource()==btn_start){ //Hasteko botoia sakatu
+            if(trainFile!=null && testFile!=null){ //Fitxategi guztiak kargatuta badaude
                 String path = trainFile.substring(0,trainFile.length()-lbl_train.getText().length());
 
+                //BoW edo TD·IDF
                 String bow = "1";
                 if(rdbtn_BoW.isSelected()){
                     bow = "0";
                 }
 
+                //Sparse edo NonSparse
                 String sparse = "no";
                 if(rdbtn_sparse.isSelected()){
                     sparse = "yes";
                 }
 
+                //FSS egin
                 String[] argumentsFSS = new String[] {trainFile,testFile,bow,sparse,path+"train"+bow+sparse+"_InfoGain.arff",path+"test"+bow+sparse+"_InfoGain.arff"};
                 FSS.main(argumentsFSS);
+
                 txtA_egoera.setText("\nTrain fitxategia transformatuta: BoW="+bow+" , Sparse="+sparse+" , path="+path+"train"+bow+sparse+"_InfoGain.arff");
                 txtA_egoera.appendText("\nTest fitxategia transformatuta: BoW="+bow+" , Sparse="+sparse+" , path="+path+"test"+bow+sparse+"_InfoGain.arff");
             }
@@ -73,13 +76,13 @@ public class FSSKudeatzaile implements Initializable {
                 txtA_egoera.setText("Test eta train arff fitxategiak kargatu mesedez");
             }
 
-        } else if(event.getSource()==btn_train){
+        } else if(event.getSource()==btn_train){ //Train fitxategia kargatu
             FileChooser fileChooser = new FileChooser();
             trainFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
             String[] split = trainFile.split("\\\\");
             lbl_train.setText(split[split.length-1]);
         }
-        else if(event.getSource()==btn_test){
+        else if(event.getSource()==btn_test){ //Test fitxategia kargatu
             FileChooser fileChooser = new FileChooser();
             testFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
             String[] split = testFile.split("\\\\");

@@ -55,7 +55,7 @@ public class FSS {
         //1. Train eta test kargatu
         Instances train = datuakKargatu(args[0]);
         Instances test = datuakKargatu(args[1]);
-        //Testaren headers-ak moldatu
+        //1.1. Testaren headers-ak moldatu
         test = stringToNominal(test);
 
         //2. AttributeSelection aplikatu train multzoan eta gorde
@@ -63,22 +63,22 @@ public class FSS {
         datuakGorde(args[4], trainFSS);
 
         //3. Hiztegi bateragarria lortu
-        //Hash-a sortu
+        //3.1. Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu("DictionaryRaw.txt",trainFSS);
-        //Hiztegia gorde
+        //3.2. Hiztegia gorde
         dictionaryGorde(hiztegia,"DictionaryFSS.txt",trainFSS);
 
         String vector = args[2];
         String emaitza = args[3];
         Instances vectorTest = null;
 
-        //BOW edo TF·IDF
+        //3. BOW edo TF·IDF
         if(vector.equals("0")){ //BoW
-            //StringToWordVector - BoW
+            //FixedDictionaryStringToWordVector - BoW
             vectorTest = fixedDictionaryStringToVector("DictionaryFSS.txt",test,false);
         }
         else if(vector.equals("1")){ //TF·IDF
-            //StringToWordVector - TF·IDF
+            //FixedDictionaryStringToWordVector - TF·IDF
             vectorTest = fixedDictionaryStringToVector("DictionaryFSS.txt",test,true);
         }
         else{
@@ -86,6 +86,7 @@ public class FSS {
             System.exit(0);
         }
 
+        //4. Sparse edo NonSparse
         if(emaitza.equals("no")){ //NonSparse
             vectorTest = nonSparse(vectorTest);
         }
@@ -94,7 +95,7 @@ public class FSS {
             System.exit(0);
         }
 
-        //Klasea azken atributuan jarri
+        //5. Klasea azken atributuan jarri
         vectorTest = reorder(vectorTest);
         datuakGorde(args[5],vectorTest);
         System.out.println("FSS AMAITUTA");
@@ -117,8 +118,6 @@ public class FSS {
         filterSelect.setInputFormat(data);
         filterSelect.setEvaluator(evalInfoGain);
         filterSelect.setSearch(ranker);
-
-
         Instances trainFSS = Filter.useFilter(data, filterSelect);
         return trainFSS;
     }
@@ -151,7 +150,6 @@ public class FSS {
                 }
                 contentLine = br.readLine();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -163,7 +161,7 @@ public class FSS {
 
     public static void dictionaryGorde(HashMap<String, Integer> hiztegia, String path, Instances data) throws IOException {
         FileWriter fw = new FileWriter(path);
-        fw.write("@@@numDocs="+data.numInstances()+"@@@\n");
+        fw.write("@@@numDocs="+data.numInstances()+"@@@\n"); //Beharrezkoa TF·IDF bihurketa egiteko
 
         for(int i=0; i<data.numAttributes()-1;i++){
             String atributua = data.attribute(i).name();
@@ -171,9 +169,7 @@ public class FSS {
                 fw.write(atributua+","+hiztegia.get(atributua)+"\n");
             }
         }
-
         fw.close();
-
     }
 
     private static Instances stringToNominal(Instances test) throws Exception {
@@ -215,7 +211,7 @@ public class FSS {
         FixedDictionaryStringToWordVector filterFixedDictionary = new FixedDictionaryStringToWordVector();
 
         String[] options;
-        if(bool) {
+        if(bool) { //TF·IDF
             options = new String[8];
             options[0] = "-I";
             options[1] = "-T";
@@ -225,7 +221,7 @@ public class FSS {
             options[5] = dictionary;
             options[6] = "-L";
             options[7] = "-C";
-        }else{
+        }else{ //BoW
             options = new String[5];
             options[0] = "-R";
             options[1] = "first-last";

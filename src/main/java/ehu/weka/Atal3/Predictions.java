@@ -46,7 +46,7 @@ public class Predictions {
         //2. Eredua kargatu: deserialize
         Classifier model = deserialize(args[2]);
 
-        //2.1. Filtered Classifier aplikatu
+        //2.1. Filtered Classifier aplikatu (ez da erabiltzen MultilayerPerceptron-ekin denbora gehiegi behar duelako)
         //FilteredClassifier fc = new FilteredClassifier();
         //fc.setClassifier(model);
         //fc.buildClassifier(train);
@@ -66,15 +66,13 @@ public class Predictions {
             fw.write((i+1)+"\t"+test.instance(i).stringValue(test.classIndex())+"\t"+test.classAttribute().value((int)predicted)+"\n");
         }
 
-        //Summary, detail eta matrix ere gordeko dugu
+        //5. Informazio gehiago gorde
         fw.write("\n"+eval.toClassDetailsString()+"\n");
         fw.write("\n"+eval.toSummaryString()+"\n");
         fw.write("\n"+eval.toMatrixString()+"\n");
 
         fw.close();
-
         return eval;
-
     }
 
     public static Instances datuakKargatu(String path) throws Exception {
@@ -95,6 +93,4 @@ public class Predictions {
         eval.evaluateModel(model,test);
         return eval;
     }
-
-
 }

@@ -45,10 +45,10 @@ public class TransformRaw {
             String emaitza = args[2];
             String outPath = args[3];
 
-            //Datuak kargatu(train)
+            //1. Datuak kargatu(train)
             Instances data = datuakKargatu(inputPath);
 
-            //BOW edo TF·IDF
+            //2. BOW edo TF·IDF
             if(vector.equals("0")){ //BoW
                 //StringToWordVector - BoW
                 data = stringToWordVector(data,false);
@@ -62,10 +62,12 @@ public class TransformRaw {
                 System.exit(0);
             }
 
-            //Sparse edo NonSparse - 'dispertsio' edo 'ez-dispertsio'
+            //3. Sparse edo NonSparse - 'dispertsio' edo 'ez-dispertsio'
             if(emaitza.equals("yes")){ //Sparse
                 //Defektuz Sparse da orduan zuzenean gordetzen dugu
                 datuakGorde(outPath,data);
+
+                //AttributeSelection ere egin gero probak egiteko
                 data = selection(data);
                 String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
                 datuakGorde(path,data);
@@ -73,6 +75,8 @@ public class TransformRaw {
             else if(emaitza.equals("no")){ //NonSparse
                 Instances nonSparseData = nonSparse(data);
                 datuakGorde(outPath,nonSparseData);
+
+                //AttributeSelection ere egin gero probak egiteko
                 nonSparseData = selection(nonSparseData);
                 String path = outPath.substring(0,outPath.length()-5)+"_Selection.arff";
                 datuakGorde(path,nonSparseData);
@@ -81,10 +85,7 @@ public class TransformRaw {
                 System.out.println("Errorea: Hirugarren parametroa ez da zuzena");
                 System.exit(0);
             }
-
-
         }
-
     }
 
     public static Instances datuakKargatu(String path) throws Exception {
@@ -95,8 +96,9 @@ public class TransformRaw {
     }
 
     public static Instances stringToWordVector(Instances data, boolean bool) throws Exception {
-        StringToWordVector filterVector = new StringToWordVector(); //Hitzen agerpena adieraziko du 0 --> Ez agertu eta 1 --> Agertu
-        /*
+        StringToWordVector filterVector = new StringToWordVector();
+
+        /* Egiteko beste modu bat, baina arazo txikiak ematzen ditu
         filterVector.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
         filterVector.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         File f = new File("DictionaryRaw.txt");
@@ -106,8 +108,9 @@ public class TransformRaw {
         filterVector.setWordsToKeep(1000);
         filterVector.setInputFormat(data);
          */
+
         String[] options;
-        if(bool) {
+        if(bool) { //TF·IDF
             options = new String[14];
             options[0] = "-R";
             options[1] = "first-last";
@@ -123,7 +126,7 @@ public class TransformRaw {
             options[11] = "-L";
             options[12] = "-dictionary";
             options[13] = "DictionaryRaw.txt";
-        }else{
+        }else{ //BoW
             options = new String[11];
             options[0] = "-R";
             options[1] = "first-last";
@@ -138,12 +141,11 @@ public class TransformRaw {
             options[10] = "DictionaryRaw.txt";
 
         }
+
         filterVector.setOptions(options);
         filterVector.setInputFormat(data);
         Instances vectorData = Filter.useFilter(data,filterVector);
         data.setClassIndex(0);
-
-        //System.out.println(f.getAbsolutePath());
 
 
         return vectorData;

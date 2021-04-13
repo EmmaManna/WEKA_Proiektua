@@ -42,10 +42,6 @@ public class MainKudeatzaile implements Initializable {
     private AnchorPane anchor_predictions;
 
     @FXML
-    private AnchorPane anchorServer;
-
-
-    @FXML
     void onClick(ActionEvent event) {
         //Erlaitz desberdinetan klik egitean bistaratu behar dena kudeatzen du
         if(event.getSource()==btn_Predictions) {

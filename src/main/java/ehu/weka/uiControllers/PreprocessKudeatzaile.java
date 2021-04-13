@@ -51,9 +51,11 @@ public class PreprocessKudeatzaile implements Initializable {
 
     @FXML
     void onClick(ActionEvent event) throws Exception {
-        if(event.getSource()==btn_start){
-            if(trainFile!=null && testFile!=null){
+        if(event.getSource()==btn_start){ //Hasteko botoia sakatu
+            if(trainFile!=null && testFile!=null){ //Train eta test .csv fitxategiak kargatu badira
                 String path = trainFile.substring(0,trainFile.length()-lbl_train.getText().length());
+
+                //Bi fitxategiak egokitu eta .arff bilakatu
                 String[] argumentsTrain = new String[] {"train",trainFile,path+lbl_train.getText().substring(0,lbl_train.getText().length()-4)+".arff"};
                 GetRaw.main(argumentsTrain);
                 txtA_egoera.setText("Train CSV fitxategia egokituta");
@@ -61,20 +63,24 @@ public class PreprocessKudeatzaile implements Initializable {
                 GetRaw.main(argumentsTest);
                 txtA_egoera.appendText("\nTest CSV fitxategia egokituta");
 
+                //BoW edo TF·IDF
                 String bow = "1";
                 if(rdbtn_BoW.isSelected()){
                     bow = "0";
                 }
 
+                //Sparse edo NonSparse
                 String sparse = "no";
                 if(rdbtn_sparse.isSelected()){
                     sparse = "yes";
                 }
 
+                //Train formateatu
                 String[] argumentsTR = new String[] {path+lbl_train.getText().substring(0,lbl_train.getText().length()-4)+".arff",bow,sparse,path+"train"+bow+sparse+".arff"};
                 TransformRaw.main(argumentsTR);
                 txtA_egoera.appendText("\nTrain fitxategia transformatuta: BoW="+bow+" , Sparse="+sparse+" , path="+path+"train"+bow+sparse+".arff");
 
+                //Test formateatu
                 String[] argumentsMC = new String[] {path+"train"+bow+sparse+".arff",path+lbl_test.getText().substring(0,lbl_test.getText().length()-4)+".arff",bow,sparse,path+"test"+bow+sparse+".arff"};
                 MakeCompatible.main(argumentsMC);
                 txtA_egoera.appendText("\nTest fitxategia transformatuta: BoW="+bow+" , Sparse="+sparse+" , path="+path+"test"+bow+sparse+".arff");
@@ -83,13 +89,13 @@ public class PreprocessKudeatzaile implements Initializable {
                 txtA_egoera.setText("Test eta train csv fitxategiak kargatu mesedez");
             }
 
-        } else if(event.getSource()==btn_train){
+        } else if(event.getSource()==btn_train){ //Train fitxategia kargatu
             FileChooser fileChooser = new FileChooser();
             trainFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
             String[] split = trainFile.split("\\\\");
             lbl_train.setText(split[split.length-1]);
         }
-        else if(event.getSource()==btn_test){
+        else if(event.getSource()==btn_test){ //Test fitxategia kargatu
             FileChooser fileChooser = new FileChooser();
             testFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
             String[] split = testFile.split("\\\\");

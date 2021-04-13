@@ -33,7 +33,7 @@ public class GetRaw {
             System.out.println("\t2- .csv fitxategiaren helbidea.");
             System.out.println("\t3- .arff fitxategia gordeko den helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar getRawARFF.jar <train/test> <input.csv> <outputPath>");
+            System.out.println("\tjava -jar getRaw.jar <train/test> <input.csv> <outputPath>");
             System.exit(0);
         }
 

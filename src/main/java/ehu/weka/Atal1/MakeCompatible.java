@@ -42,32 +42,31 @@ public class MakeCompatible {
             System.exit(0);
         }
 
-        //Datuak kargatu: train eta test
+        //1. Datuak kargatu: train eta test
         Instances train = datuakKargatu(args[0]);
         Instances test = datuakKargatu(args[1]);
-        //Testaren headers-ak moldatu
+        //1.1. Testaren headers-ak moldatu
         test = stringToNominal(test);
 
-        //Hash-a sortu
+        //2. Hiztegia prestatu
+        //2.1. Hash-a sortu
         HashMap<String, Integer> hiztegia = hashSortu(train);
-        //Hiztegia gorde
+        //2.2. Hiztegia gorde
         dictionaryGorde("DictionaryRaw.txt",hiztegia,"Dictionary.txt",train.numInstances());
 
 
-        //FixedDictoniaryStringToWordVector
-        //File file = new File("Dictionary.txt");
 
         String vector = args[2];
         String emaitza = args[3];
         Instances vectorTest = null;
 
-        //BOW edo TF·IDF
+        //3. BOW edo TF·IDF
         if(vector.equals("0")){ //BoW
-            //StringToWordVector - BoW
+            //FixedDictionaryStringToWordVector - BoW
             vectorTest = fixedDictionaryStringToVector("Dictionary.txt",test,false);
         }
         else if(vector.equals("1")){ //TF·IDF
-            //StringToWordVector - TF·IDF
+            //FixedDictionaryStringToWordVector - TF·IDF
             vectorTest = fixedDictionaryStringToVector("Dictionary.txt",test,true);
         }
         else{
@@ -75,6 +74,7 @@ public class MakeCompatible {
             System.exit(0);
         }
 
+        //4. Sparse edo NonSparse
         if(emaitza.equals("no")){ //NonSparse
             vectorTest = nonSparse(vectorTest);
         }
@@ -82,10 +82,11 @@ public class MakeCompatible {
             System.out.println("Errorea: Laugarren parametroa ez da zuzena");
             System.exit(0);
         }
-        //Klasea azken atributuan jarri
+
+        //5. Klasea azken atributuan jarri (soilik aurretik attribtuteSelection erabili bada)
         //vectorTest = reorder(vectorTest);
         datuakGorde(args[4],vectorTest);
-        System.out.println("MakeCompatible Bukatu du");
+        System.out.println("MakeCompatible bukatu du");
 
     }
 
@@ -145,7 +146,7 @@ public class MakeCompatible {
 
     public static void dictionaryGorde(String pathRaw, HashMap<String, Integer> hiztegia, String path, int docs) throws IOException {
         FileWriter fw = new FileWriter(path);
-        fw.write("@@@numDocs="+docs+"@@@\n");
+        fw.write("@@@numDocs="+docs+"@@@\n"); //Beharrezkoa TF·IDF bihurketa egiteko
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(pathRaw));
@@ -169,17 +170,18 @@ public class MakeCompatible {
 
     public static Instances fixedDictionaryStringToVector(String dictionary, Instances test,  boolean bool) throws Exception {
         FixedDictionaryStringToWordVector filterFixedDictionary = new FixedDictionaryStringToWordVector();
-        /*
+
+        /* Egiteko beste modu bat, baina arazo txikiak ematen ditu
         filterFixedDictionary.setDictionaryFile(dictionary);
         filterFixedDictionary.setOutputWordCounts(bool); //bool --> FALSE - Hitzen agerpena bakarrik kontuan dugu {0,1}, ez maiztasuna || bool --> TRUE - Maiztasunak kontuan hartzen dugu
         filterFixedDictionary.setTFTransform(bool); //bool --> TRUE - Term Frequency kontuan hartu nahi dugu. Term Frequency (TF) dj dokumentu bateko wi hitzaren maiztasun erlatiboa (1) adierazpenean agertzen den bezala definitzen da.
         filterFixedDictionary.setIDFTransform(bool); //bool --> TRUE - TFIDF kontuan hartu nahi dugu. Sets whether if the word frequencies in a document should be transformed into: fij*log(num of Docs/num of Docs with word i) where fij is the frequency of word i in document(instance) j.
         filterFixedDictionary.setLowerCaseTokens(true);
         filterFixedDictionary.setInputFormat(test);
-
          */
+
         String[] options;
-        if(bool) {
+        if(bool) { //TF·IDF
             options = new String[8];
             options[0] = "-I";
             options[1] = "-T";
@@ -189,7 +191,7 @@ public class MakeCompatible {
             options[5] = dictionary;
             options[6] = "-L";
             options[7] = "-C";
-        }else{
+        }else{ //BoW
             options = new String[5];
             options[0] = "-R";
             options[1] = "first-last";
@@ -197,6 +199,7 @@ public class MakeCompatible {
             options[3] = dictionary;
             options[4] = "-L";
         }
+
         filterFixedDictionary.setOptions(options);
         filterFixedDictionary.setInputFormat(test);
         Instances fixedTest = Filter.useFilter(test,filterFixedDictionary);
@@ -216,7 +219,5 @@ public class MakeCompatible {
         saver.setFile(new File(path));
         saver.writeBatch();
     }
-
-
 
 }

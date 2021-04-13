@@ -43,13 +43,13 @@ public class GetModel {
             System.exit(0);
         }
 
-        //Argumentuak gorde
+        //1. Argumentuak gorde
         Instances train = datuakKargatu(args[0]);
         String pathModel = args[1];
         String emaitzakPath = args[2];
         File parametroOptimoak = new File(args[3]);
 
-        //parametroak lortu
+        //2. Parametroak lortu fitxategitik
         String hiddenLayer = null;
         double lr = 0.0;
         try (BufferedReader br = new BufferedReader(new FileReader(parametroOptimoak))) {
@@ -63,8 +63,7 @@ public class GetModel {
             }
         }
 
-
-        //modeloa sortu
+        //3. Modeloa sortu
         System.out.println("Modeloa sortzen...");
         System.out.println("\tHidden Layers:" + hiddenLayer);
         System.out.println("\tLearning Rate: " + lr);
@@ -73,14 +72,15 @@ public class GetModel {
         cls.setLearningRate(lr);
         cls.buildClassifier(train);
 
-        //modeloa gorde
+        //4. Modeloa gorde
         SerializationHelper.write(pathModel,cls);
 
-        //ebaluatu eta estimazioa fitxategian gorde
+        //5. Ebaluatu eta estimazioa fitxategian gorde
         System.out.println("Ebaluazioa egiten...");
         File emaitzak = new File(emaitzakPath);
         FileWriter fw = new FileWriter(emaitzak);
         fw.write("/////////////////////////////KALITATEAREN ESTIMAZIOA////////////////////////////////\n\n\n");
+
         //EZ-ZINTZOA
         fw.write("----------------------EZ ZINTZOA----------------------\n\n");
         System.out.println("\tEbaluazio EZ-ZINTZOA hasten...");
@@ -90,6 +90,7 @@ public class GetModel {
         fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
         fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
         System.out.println("\tEbaluazio EZ-ZINTZOA eginda...");
+
         //CROSS VALIDATION
         fw.write("----------------------CROSS VALIDATION----------------------\n\n");
         System.out.println("\t10 FOLD CROSS VALIDATION ebaluazioa hasten...");
@@ -99,6 +100,7 @@ public class GetModel {
         fw.write("\n"+eval10fCV.toSummaryString()+"\n");
         fw.write("\n"+eval10fCV.toMatrixString()+"\n");
         System.out.println("\t10 FOLD CROSS VALIDATION ebaluazioa eginda");
+
         //HOLD-OUT 100 ALDIZ
         fw.write("----------------------HOLD-OUT 100 ALDIZ----------------------\n\n");
         System.out.println("\t100 HOLD-OUT ebaluazioa hasten...");
@@ -118,6 +120,7 @@ public class GetModel {
             //Ebaluatu
             evalHoldOut.evaluateModel(cls, testh);
         }
+
         fw.write("\n"+evalHoldOut.toClassDetailsString()+"\n");
         fw.write("\n"+evalHoldOut.toSummaryString()+"\n");
         fw.write("\n"+evalHoldOut.toMatrixString()+"\n");

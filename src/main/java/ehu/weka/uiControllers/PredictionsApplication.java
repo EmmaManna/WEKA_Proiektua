@@ -1,10 +1,12 @@
 package ehu.weka.uiControllers;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -24,6 +26,10 @@ public class PredictionsApplication extends Application {
     private FSSKudeatzaile fssKud;
     private PreprocessKudeatzaile preprocessKud;
 
+    //Pantaila mugitzeko kalkulurako
+    private double xOffset = 0;
+    private double yOffset =0;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -33,9 +39,10 @@ public class PredictionsApplication extends Application {
 
         stage.initStyle(StageStyle.UNDECORATED);
 
+        pantailaMugitu();
+
         stage.setScene(sceneMain);
         stage.show();
-
     }
 
     private void pantailakKargatu() throws IOException {
@@ -68,14 +75,6 @@ public class PredictionsApplication extends Application {
         loader.setControllerFactory(controllerFactory);
         mainUI = (Parent) loader.load();
         sceneMain = new Scene(mainUI);
-
-        /*
-        mainUI = (Parent) loader.load();
-        mainKud = loader.getController();
-        mainKud.setMain(this);
-        sceneMain = new Scene(mainUI);
-
-         */
     }
 
     private void kudeatzaileakKargatu(){
@@ -104,5 +103,24 @@ public class PredictionsApplication extends Application {
 
     public Stage getStage() {
         return stage;
+    }
+
+    private void pantailaMugitu(){
+        //Pantaila nagusia mugitu ahal izatea nahi dugun tokira saguarekin
+        mainUI.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+
+        mainUI.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
     }
 }

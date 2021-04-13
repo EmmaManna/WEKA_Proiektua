@@ -1,7 +1,6 @@
 package ehu.weka.Atal2;
 
 import weka.classifiers.Evaluation;
-import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.functions.Logistic;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
@@ -44,19 +43,20 @@ public class GetBaselineModel {
             String model = args[1];
             String txt = args[2];
 
-            //Train kargatu
+            //1. Train kargatu
             Instances train = datuakKargatu(inputPath);
 
-            //Baseline modeloa sortu
+            //2. Baseline modeloa sortu
             Logistic logistic = new Logistic();
             logistic.buildClassifier(train);
 
-            //modeloa gorde
+            //3. Modeloa gorde
             SerializationHelper.write(model,logistic);
 
-            //ebaluatu eta estimazioa fitxategian gorde
+            //4. Ebaluatu eta estimazioa fitxategian gorde
             FileWriter fw = new FileWriter(txt);
             fw.write("/////////////////////////////KALITATEAREN ESTIMAZIOA////////////////////////////////\n\n\n");
+
             //EZ-ZINTZOA
             fw.write("----------------------EZ ZINTZOA----------------------\n\n");
             Evaluation evalEZintzoa = new Evaluation(train);
@@ -64,6 +64,7 @@ public class GetBaselineModel {
             fw.write("\n"+evalEZintzoa.toClassDetailsString()+"\n");
             fw.write("\n"+evalEZintzoa.toSummaryString()+"\n");
             fw.write("\n"+evalEZintzoa.toMatrixString()+"\n");
+
             //CROSS VALIDATION
             fw.write("----------------------CROSS VALIDATION----------------------\n\n");
             Evaluation eval10fCV = new Evaluation(train);
@@ -71,9 +72,11 @@ public class GetBaselineModel {
             fw.write("\n"+eval10fCV.toClassDetailsString()+"\n");
             fw.write("\n"+eval10fCV.toSummaryString()+"\n");
             fw.write("\n"+eval10fCV.toMatrixString()+"\n");
+
             //HOLD-OUT 100 ALDIZ
             fw.write("----------------------HOLD-OUT 100 ALDIZ----------------------\n\n");
             Evaluation evalHoldOut = new Evaluation(train);
+
             for(int i=0; i<100; i++) {
                 //Randomize
                 Instances randomData = randomize(train, i);

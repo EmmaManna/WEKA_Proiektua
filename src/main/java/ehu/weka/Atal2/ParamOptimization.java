@@ -1,6 +1,5 @@
 package ehu.weka.Atal2;
 
-import ehu.weka.Proiektua;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instances;
@@ -42,51 +41,57 @@ public class ParamOptimization {
 
         // --------------------- PARAMETRO EKORKETAREKIN HASI --------------------------------------
 
-        //entrenamendurako datuak kargatu
+        //1. Entrenamendurako datuak kargatu
         Instances data = datuakKargatu(args[0]);
+
+        //2. Klase minoritarioa lortu
         int klaseMinoritarioaIndex = Utils.minIndex(data.attributeStats(data.classIndex()).nominalCounts);
         System.out.println("Klase minoritarioa: " + data.attribute(data.classIndex()).value(klaseMinoritarioaIndex));
 
-        //hidden layers desberdinak
+        //3. Hidden layers desberdinak zehaztu
         ArrayList<String> hiddenLayers = new ArrayList<String>();
         hiddenLayers.add("50,25,12");
         hiddenLayers.add("100");
         hiddenLayers.add("150,100,50");
         hiddenLayers.add("90,45");
 
-        //parametro optimoenak lortzeko
+        //4. Parametro optimoenak lortzeko aldagaiak
         String bestHiddenLayer = "";
         Double bestLR = 0.0;
         Double bestFmeasure = 0.0;
 
+
+
         //--------------------------- HOLD OUT ---------------------------------------------
+
         int iterazioKop = 1;
-        //learning rate desberdinak
+
+        //5. learning rate desberdinak
         for(double lr = 0.1; lr < 0.5; lr = lr + 0.1){
             for (String hiddenLayer : hiddenLayers){
 
                 System.out.println("#############################################################################");
                 System.out.println(iterazioKop + ". ITERAZIOA "+java.time.LocalDateTime.now().toString());
+
                 //parametroak printeatu
                 System.out.println("\tLearning Rate: " + lr);
                 System.out.println("\tHidden Layers: " + hiddenLayer + "\n\n");
 
-                //Sailkatzailea sortu
+                //5.1. Sailkatzailea sortu
                 MultilayerPerceptron cls = new MultilayerPerceptron();
 
-                //parametroak finkatu
+                //5.2. Parametroak finkatu
                 cls.setHiddenLayers(hiddenLayer);
                 cls.setLearningRate(lr);
                 cls.setTrainingTime(250);  //number of epochs, 500 default
 
-                //instantziak nahastu
+                //5.3. Instantziak nahastu, randomize
                 Randomize filterRandomize = new Randomize();
                 filterRandomize.setRandomSeed(iterazioKop);
                 filterRandomize.setInputFormat(data);
                 data = Filter.useFilter(data, filterRandomize);
 
-                //train multzoak lortu
-
+                //5.4. train multzoak lortu
                 Instances train;
                 RemovePercentage rmpct = new RemovePercentage();
                 rmpct.setInvertSelection(false);
@@ -94,7 +99,7 @@ public class ParamOptimization {
                 rmpct.setInputFormat(data);
                 train = Filter.useFilter(data, rmpct);
 
-                //test multzoa lortu
+                //5.5. test multzoa lortu
                 Instances test;
                 RemovePercentage rmpct2 = new RemovePercentage();
                 rmpct2.setInvertSelection(true);
@@ -102,15 +107,15 @@ public class ParamOptimization {
                 rmpct2.setInputFormat(data);
                 test = Filter.useFilter(data, rmpct2);
 
-                //sailkatzailea entrenatu
+                //5.6. Sailkatzailea entrenatu
                 cls.buildClassifier(train);
 
-                //ebaluazioa egin
+                //5.7. Ebaluazioa egin
                 Evaluation eval = new Evaluation(train);
                 eval.evaluateModel(cls, test);
                 System.out.println(eval.toSummaryString("\n=== Results ===\n",false));
 
-                //parametro optimoak lortu
+                //5.8. Parametro optimoak lortu
                 double fMeasure = eval.fMeasure(klaseMinoritarioaIndex);
                 System.out.println("\tF-measure klase minoritarioarekiko: " + fMeasure);
 
@@ -121,11 +126,11 @@ public class ParamOptimization {
                 }
 
                 System.out.println("\n\n");
-
                 iterazioKop++;
             }
         }
 
+        //6. Parametro optimoak fitxategian gorde
         File file = new File(args[1]);
         FileWriter fw = new FileWriter(file);
 
@@ -143,8 +148,8 @@ public class ParamOptimization {
 
         fw.flush();
         fw.close();
-
     }
+
     public static Instances datuakKargatu(String path) throws Exception {
         ConverterUtils.DataSource source = new ConverterUtils.DataSource(path);
         Instances data = source.getDataSet();
