@@ -25,10 +25,10 @@ Erabiltzaileari erraztasun gehiago emateko helburuarekin interfaze grafiko bat g
 1. Preprocess: Datuak .csv formatuan emanda, horiek formateatzen eta egokitzen ditu.
   - Sartu beharreko fitxategiak: Train eta test multzo gordinak .csv formatuan.
   - Sartu beharreko parametroak: Atributu espazioaren zein errepresentazio nahi den, BoW/TF·IDF, eta datuen formatua, Sparse/NonSparse.
-3. FSS: Train eta test multzoen atributuen hautapena egiten da, informazio irabaziaren irizpidea erabiliz. Gainera, test multzoaren egokitzapena egiten da ere.
+2. FSS: Train eta test multzoen atributuen hautapena egiten da, informazio irabaziaren irizpidea erabiliz. Gainera, test multzoaren egokitzapena egiten da ere. OHARRA: Aldez aurretik hiztegia sortuta izan behar da exektutatu baino lehen, hau da, preprocess aldez aurretik eginda egon behar da.
   - Sartu beharreko fitxategiak: Train multzoa .arff formatuan eta atributu espazioa aplikatuta eta test multzoa .arff formatuan.
   - Sartu beharreko parametroak: Train multzoaren atributu espazioaren xehetasunak, BoW/TF·IDF eta Sparse/NonSparse alegia.
-4. Predictions: Iragarpenak egiten dira erlaitz honetan eta horretarako bi aukera ematen dira. Alde batetik, test multzoa emanda instantzia multzo baten iragarpenak egitea, eta bestetik testu soila sartuz Tweet horren sentimenduen iragarpena egitea. 
+3. Predictions: Iragarpenak egiten dira erlaitz honetan eta horretarako bi aukera ematen dira. Alde batetik, test multzoa emanda instantzia multzo baten iragarpenak egitea, eta bestetik testu soila sartuz Tweet horren sentimenduen iragarpena egitea. 
   - Derrigorrez sartu beharreko fitxategiak: iragarpenak gordeko diren fitxategiaren helbidea, eredu iragarlearen fitxategiaren helbidea eta eredua entrenatzeko erabili den fitxategia. 
   - Test multzoaren iragarpenak egiteko fitxategiak: Train multzoaren formatu berdina duen fitxategiaren helbidea.
   - Idatzitako testuaren iragarpenak egiteko fitxategiak: Atributu guztiak dituen entrenamendu multzoaren helbidea formatu egokian, eta erabili den formatua (BoW/TD·IDF, Sparse/NonSparse).
