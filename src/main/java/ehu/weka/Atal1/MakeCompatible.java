@@ -135,7 +135,7 @@ public class MakeCompatible {
 
     public static HashMap<String,Integer> hashSortu(Instances data) throws IOException {
         HashMap<String, Integer> hiztegia = new HashMap();
-        for(int i=0;i<data.numAttributes()-1;i++) {
+        for(int i=1;i<data.numAttributes();i++) {
             Attribute attrib = data.attribute(i);
             hiztegia.put(attrib.name(),1);
         }
