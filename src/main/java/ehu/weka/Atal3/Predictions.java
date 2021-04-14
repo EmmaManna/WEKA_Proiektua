@@ -18,33 +18,33 @@ public class Predictions {
 
     public static Evaluation main(String[] args) throws Exception {
 
-        if (args.length != 4) {
+        if (args.length != 3) {
             System.out.println("Programaren helburua:");
             System.out.println("\tIragarpenak test multzoko instantzien klasea lortu erabilitako algoritmo guztien bidez.");
             System.out.println("\nAurrebaldintzak:");
             System.out.println("\t1- Lehenengo parametro bezala test.arff fitxategia");
-            System.out.println("\t1- Bigarren parametro bezala test.arff fitxategia");
-            System.out.println("\t2- Hirugarren parametro bezala eredu iragarlearen .model fitxategia.");
-            System.out.println("\t3- Laugarren parametro bezala iragarpenak gordetzeko .txt fitxategiaren path-a.");
+            //System.out.println("\t1- Bigarren parametro bezala test.arff fitxategia");
+            System.out.println("\t2- Bigarren parametro bezala eredu iragarlearen .model fitxategia.");
+            System.out.println("\t3- Hirugarren parametro bezala iragarpenak gordetzeko .txt fitxategiaren path-a.");
             System.out.println("\nPost baldintza:");
             System.out.println("\t1- Hirugarren parametroan adierazitako helbidean sortutako .txt fitxategia gordeko da.");
             System.out.println("\nArgumentuen zerrenda eta deskribapena:");
             System.out.println("\t1- Sarrerako test.arff fitxategiaren helbidea.");
-            System.out.println("\t2- Sarrerako train.arff fitxategiaren helbidea.");
-            System.out.println("\t3- Sarrerako eredu iragalearen .model fitxategiaren helbidea");
-            System.out.println("\t4- Irteerako .txt fitxategiaren helbidea.");
+            //System.out.println("\t2- Sarrerako train.arff fitxategiaren helbidea.");
+            System.out.println("\t2- Sarrerako eredu iragalearen .model fitxategiaren helbidea");
+            System.out.println("\t3- Irteerako .txt fitxategiaren helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar Predictions.jar <test.arff> <train.arff> <baseline.model> <TestPredictionsBaseline.txt> ");
+            System.out.println("\tjava -jar Predictions.jar <test.arff> <baseline.model> <TestPredictionsBaseline.txt> ");
             System.exit(0);
         }
 
 
         //1. Datuak kargatu: test.arff
         Instances test = datuakKargatu(args[0]);
-        Instances train = datuakKargatu(args[1]);
+        //Instances train = datuakKargatu(args[1]);
 
         //2. Eredua kargatu: deserialize
-        Classifier model = deserialize(args[2]);
+        Classifier model = deserialize(args[1]);
 
         //2.1. Filtered Classifier aplikatu (ez da erabiltzen MultilayerPerceptron-ekin denbora gehiegi behar duelako)
         //FilteredClassifier fc = new FilteredClassifier();
@@ -55,7 +55,7 @@ public class Predictions {
         Evaluation eval = ebaluatu(model,test);
 
         //4. Iragarpenak fitxategian idatzi
-        FileWriter fw = new FileWriter(args[3]);
+        FileWriter fw = new FileWriter(args[2]);
         fw.write("Exekuzio data: "+java.time.LocalDateTime.now().toString()+"\n");
         fw.write("\n-- Test Set -- \n");
         fw.write("Instantzia\tActual\tPredicted\n");

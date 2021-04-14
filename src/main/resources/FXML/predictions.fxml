@@ -18,16 +18,14 @@
          </font>
       </Text>
       <Button fx:id="btn_start" layoutX="470.0" layoutY="343.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="98.0" stylesheets="@../fullpackstyling.css" text="Start" textFill="WHITE" />
-      <Button fx:id="btn_model" layoutX="139.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Model" textFill="WHITE" />
-      <Button fx:id="btn_output" layoutX="248.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Output" textFill="WHITE" />
-      <Button fx:id="btn_train" layoutX="358.0" layoutY="36.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Train" textFill="WHITE" />
+      <Button fx:id="btn_model" layoutX="141.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Model" textFill="WHITE" />
+      <Button fx:id="btn_output" layoutX="252.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" stylesheets="@../fullpackstyling.css" text="Upload Output" textFill="WHITE" />
       <Label fx:id="lbl_test" layoutX="27.0" layoutY="27.0" prefHeight="17.0" prefWidth="98.0" />
       <Label fx:id="lbl_model" layoutX="139.0" layoutY="27.0" prefHeight="17.0" prefWidth="95.0" />
       <Label fx:id="lbl_output" layoutX="248.0" layoutY="27.0" prefHeight="17.0" prefWidth="95.0" />
-      <Label fx:id="lbl_train" layoutX="358.0" layoutY="11.0" prefHeight="17.0" prefWidth="84.0" />
       <RadioButton fx:id="rdbtn_BoW" layoutX="470.0" layoutY="59.0" mnemonicParsing="false" text="BoW" />
       <RadioButton fx:id="rdbtn_sparse" layoutX="470.0" layoutY="36.0" mnemonicParsing="false" text="Sparse" />
-      <Button fx:id="btn_TrainFSS" layoutX="358.0" layoutY="76.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="84.0" stylesheets="@../fullpackstyling.css" text="TrainFSS" textFill="WHITE" />
-      <Label fx:id="lbl_trainFSS" layoutX="358.0" layoutY="112.0" prefHeight="17.0" prefWidth="84.0" />
+      <Button fx:id="btn_TrainFSS" layoutX="365.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="84.0" stylesheets="@../fullpackstyling.css" text="TrainFSS" textFill="WHITE" />
+      <Label fx:id="lbl_trainFSS" layoutX="365.0" layoutY="27.0" prefHeight="17.0" prefWidth="84.0" />
    </children>
 </AnchorPane>

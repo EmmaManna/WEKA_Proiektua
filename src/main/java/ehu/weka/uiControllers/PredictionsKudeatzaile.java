@@ -24,7 +24,6 @@ public class PredictionsKudeatzaile implements Initializable {
     private String testFile;
     private String modelFile;
     private String precitionsFile;
-    private String trainFile;
     private String trainFSS;
 
     public void setMain(PredictionsApplication main) {
@@ -51,9 +50,6 @@ public class PredictionsKudeatzaile implements Initializable {
     private Button btn_output;
 
     @FXML
-    private Button btn_train;
-
-    @FXML
     private Label lbl_test;
 
     @FXML
@@ -61,9 +57,6 @@ public class PredictionsKudeatzaile implements Initializable {
 
     @FXML
     private Label lbl_output;
-
-    @FXML
-    private Label lbl_train;
 
     @FXML
     private RadioButton rdbtn_BoW;
@@ -81,9 +74,9 @@ public class PredictionsKudeatzaile implements Initializable {
     @FXML
     void onClick(ActionEvent event) throws Exception {
         if(event.getSource()==btn_start){ //Hasteko botoia sakatu
-            if(precitionsFile!=null && modelFile!=null && trainFile!=null){ //Derrigorrezko hiru fitxategiak kargatuta (predictions.txt, model eta train)
+            if(precitionsFile!=null && modelFile!=null){ //Derrigorrezko bi fitxategiak kargatuta (predictions.txt eta model)
                 if(testFile!=null && trainFSS!=null){ //Test fitxategia kargatu bada
-                    String[] arguments = new String[] {testFile,trainFile,modelFile,precitionsFile};
+                    String[] arguments = new String[] {testFile,modelFile,precitionsFile};
                     Predictions.main(arguments);
                     txt_result.setText("Iragarpenak fitxategi honetan gorde dira: "+precitionsFile);
                 }
@@ -113,7 +106,7 @@ public class PredictionsKudeatzaile implements Initializable {
                     FSS.main(arguments2);
 
                     //Iragarpenak lortu
-                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff",trainFile,modelFile,precitionsFile};
+                    String[] arguments = new String[] {path+"\\testInstaintzia"+bow+sparse+data+"_InfoGain.arff",modelFile,precitionsFile};
                     Evaluation eval = Predictions.main(arguments);
 
 
@@ -137,7 +130,7 @@ public class PredictionsKudeatzaile implements Initializable {
                 }
             }
             else{
-                txt_result.setText("Ereduaren, entrenamendu multzoaren eta iragarpenak egiteko fitxategiak kargatu mesedez");
+                txt_result.setText("Ereduaren eta iragarpenak egiteko fitxategiak kargatu mesedez");
             }
         }
         else if(event.getSource()==btn_arff){ //Test fitxategia kargatu
@@ -158,13 +151,6 @@ public class PredictionsKudeatzaile implements Initializable {
             String[] split = precitionsFile.split("\\\\");
             lbl_output.setText(split[split.length-1]);
         }
-        else if(event.getSource()==btn_train){ //Train fitxategia kargatu (InfoGain)
-            FileChooser fileChooser = new FileChooser();
-            trainFile = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();
-            String[] split = trainFile.split("\\\\");
-            lbl_train.setText(split[split.length-1]);
-        }
-
         else if(event.getSource()==btn_TrainFSS){ //FSS egiteko train fitxategia kargatu
             FileChooser fileChooser = new FileChooser();
             trainFSS = fileChooser.showOpenDialog(mainApp.getStage()).getAbsolutePath();

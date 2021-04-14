@@ -36,7 +36,7 @@ public class GetBaselineModel {
             System.out.println("\t2- Irteerako eredu iragalearen .model fitxategiaren helbidea");
             System.out.println("\t3- Irteerako .txt fitxategiaren helbidea.");
             System.out.println("\nErabilera adibidea komando-lerroan:");
-            System.out.println("\tjava -jar GetBaselineModeal.jar <train.arff> <baseline.model> <kalitaterenEstimazioa.txt> ");
+            System.out.println("\tjava -jar GetBaselineModel.jar <train.arff> <baseline.model> <kalitaterenEstimazioa.txt> ");
             System.exit(0);
         }
             String inputPath = args[0];
