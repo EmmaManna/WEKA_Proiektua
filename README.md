@@ -37,7 +37,7 @@ OHAR GARRANTZITSUA: Aplikazioak erlaitz bakoitzeko programak exekutatzen dituen 
 
 ## Esteka interesgarriak
 [Dokumentazioa]() euskaraz eginda ikusi daiteke.
-Bestalde, [hasierako datu sorta, lortutako emaitzekin]() eta [exekutagarriak]() hemen aurkitu daiteke.
+Bestalde, [hasierako datu sorta, lortutako emaitzekin](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Datasets%26%26Outputs.zip) eta [exekutagarriak]() hemen aurkitu daiteke.
 
 ## Developed by
 [![Website](https://img.shields.io/badge/XabiDermit-github-green?style=flat-square)](https://github.com/XabiDermit)
