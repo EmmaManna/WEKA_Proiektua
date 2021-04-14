@@ -11,9 +11,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 public class PredictionsApplication extends Application {
 
@@ -28,7 +32,11 @@ public class PredictionsApplication extends Application {
 
     //Pantaila mugitzeko kalkulurako
     private double xOffset = 0;
-    private double yOffset =0;
+    private double yOffset = 0;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -51,18 +59,16 @@ public class PredictionsApplication extends Application {
 
         Callback<Class<?>, Object> controllerFactory = type -> {
             if (type == MainKudeatzaile.class) {
-                return mainKud ;
+                return mainKud;
             } else if (type == MainKudeatzaile.class) {
                 return mainKud;
-            } else if(type == PredictionsKudeatzaile.class) {
+            } else if (type == PredictionsKudeatzaile.class) {
                 return predictionsKud;
-            } else if(type == FSSKudeatzaile.class) {
+            } else if (type == FSSKudeatzaile.class) {
                 return fssKud;
-            } else if(type == PreprocessKudeatzaile.class) {
+            } else if (type == PreprocessKudeatzaile.class) {
                 return preprocessKud;
-            }
-
-            else {// default behavior for controllerFactory:
+            } else {// default behavior for controllerFactory:
                 try {
                     return type.newInstance();
                 } catch (Exception exc) {
@@ -77,7 +83,7 @@ public class PredictionsApplication extends Application {
         sceneMain = new Scene(mainUI);
     }
 
-    private void kudeatzaileakKargatu(){
+    private void kudeatzaileakKargatu() {
         //Aplikazioak erabiltzen dituen kudeatzaileak hasieratzen ditu
         mainKud = new MainKudeatzaile();
         mainKud.setMain(this);
@@ -89,23 +95,22 @@ public class PredictionsApplication extends Application {
         fssKud.setMain(this);
     }
 
-    private void ikonoaJarri(){
-        String imagePath = "src\\main\\resources\\Images\\weka.png";
-        try {
-            if(stage.getIcons().size()>0){
-                stage.getIcons().remove(0);
-            }
-            stage.getIcons().add(new Image(new FileInputStream(imagePath)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    private void ikonoaJarri() {
+        String imagePath = "/Images/weka.png";
+
+        if (stage.getIcons().size() > 0) {
+            stage.getIcons().remove(0);
         }
+
+        stage.getIcons().add(new Image(getClass().getResource(imagePath).toExternalForm()));
+
     }
 
     public Stage getStage() {
         return stage;
     }
 
-    private void pantailaMugitu(){
+    private void pantailaMugitu() {
         //Pantaila nagusia mugitu ahal izatea nahi dugun tokira saguarekin
         mainUI.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

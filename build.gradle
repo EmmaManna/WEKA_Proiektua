@@ -1,15 +1,29 @@
 plugins {
+    id 'application'
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.beryx.jlink' version '2.22.3'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+application {
+    mainClass =  'ehu.weka.uiControllers.PredictionsApplication'
+}
+
+
 repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'ehu.weka.uiControllers.PredictionsApplication'
+        )
+    }
+}
 javafx {
     version = "12"
     modules = [ 'javafx.graphics', 'javafx.fxml', 'javafx.controls']
@@ -25,4 +39,27 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jlink {
+    addExtraDependencies("javafx")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'WEKA_Proiektua'
+        jvmArgs = [
+        ]
+    }
+
+    jpackage {
+        if (org.gradle.internal.os.OperatingSystem.current().windows) {
+            imageOptions += ['--icon', 'src/main/resources/Images/favicon.ico']
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+        } else if (org.gradle.internal.os.OperatingSystem.current().macOsX) {
+            imageOptions += ['--icon', 'src/main/resources/Images/iconsmall.icns']
+        } else if (org.gradle.internal.os .OperatingSystem.current().linux) {
+            imageOptions += ['--icon', 'src/main/resources/Images/iconsmall.png']
+            installerOptions += ['--linux-shortcut']
+            installerType = "deb";
+        }
+    }
 }
