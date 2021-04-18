@@ -29,7 +29,7 @@ Erabiltzaileari erraztasun gehiago emateko helburuarekin interfaze grafiko bat g
   - Sartu beharreko fitxategiak: Train multzoa .arff formatuan eta atributu espazioa aplikatuta eta test multzoa .arff formatuan.
   - Sartu beharreko parametroak: Train multzoaren atributu espazioaren xehetasunak, BoW/TF·IDF eta Sparse/NonSparse alegia.
 3. Predictions: Iragarpenak egiten dira erlaitz honetan eta horretarako bi aukera ematen dira. Alde batetik, test multzoa emanda instantzia multzo baten iragarpenak egitea, eta bestetik testu soila sartuz Tweet horren sentimenduen iragarpena egitea. 
-  - Derrigorrez sartu beharreko fitxategiak: iragarpenak gordeko diren fitxategiaren helbidea, eredu iragarlearen fitxategiaren helbidea eta eredua entrenatzeko erabili den fitxategia. 
+  - Derrigorrez sartu beharreko fitxategiak: iragarpenak gordeko diren fitxategiaren helbideaeta eredu iragarlearen fitxategiaren helbidea. 
   - Test multzoaren iragarpenak egiteko fitxategiak: Train multzoaren formatu berdina duen fitxategiaren helbidea.
   - Idatzitako testuaren iragarpenak egiteko fitxategiak: Atributu guztiak dituen entrenamendu multzoaren helbidea formatu egokian, eta erabili den formatua (BoW/TD·IDF, Sparse/NonSparse).
  
