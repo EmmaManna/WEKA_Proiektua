@@ -80,7 +80,7 @@ public class PredictionsKudeatzaile implements Initializable {
                     Predictions.main(arguments);
                     txt_result.setText("Iragarpenak fitxategi honetan gorde dira: "+precitionsFile);
                 }
-                else if(txtA_tweet.getText()!=null && btn_TrainFSS!=null){ //Tweet bat sartu bada eta beste train fitxategia sartu bada
+                else if(txtA_tweet.getText()!=null && trainFSS!=null){ //Tweet bat sartu bada eta beste train fitxategia sartu bada
                     String data = String.valueOf(System.currentTimeMillis()); //Unea lortu, izenak ezartzeko
                     String path = precitionsFile.substring(0,precitionsFile.length()-lbl_output.getText().length());
                     testSortu(data,path); //Instantzia bakarreko .csv sortu
