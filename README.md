@@ -36,7 +36,7 @@ Erabiltzaileari erraztasun gehiago emateko helburuarekin interfaze grafiko bat g
 OHAR GARRANTZITSUA: Aplikazioak erlaitz bakoitzeko programak exekutatzen dituen bitartean programa blokeatuta geldituko da.
 
 ## Esteka interesgarriak
-[Dokumentazioa]() euskaraz eginda ikusi daiteke.
+[Dokumentazioa](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/TextMining_Dokumentazioa.pdf) euskaraz eginda ikusi daiteke.
 Bestalde, [hasierako datu sorta, lortutako emaitzekin](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Datasets%26%26Outputs.zip) eta [exekutagarriak](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Exekutagarriak.zip) hemen aurkitu daiteke.
 
 ## Developed by
