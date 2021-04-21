@@ -36,8 +36,7 @@ Erabiltzaileari erraztasun gehiago emateko helburuarekin interfaze grafiko bat g
 OHAR GARRANTZITSUA: Aplikazioak erlaitz bakoitzeko programak exekutatzen dituen bitartean programa blokeatuta geldituko da.
 
 ## Esteka interesgarriak
-[Dokumentazioa](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/TextMining_Dokumentazioa.pdf) euskaraz eginda ikusi daiteke.
-Bestalde, [hasierako datu sorta, lortutako emaitzekin](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Datasets%26%26Outputs.zip) eta [exekutagarriak](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Exekutagarriak.zip) hemen aurkitu daitezke.
+[Hasierako datu sorta, lortutako emaitzekin](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Datasets%26%26Outputs.zip) eta [exekutagarriak](https://github.com/EmmaManna/WEKA_Proiektua/blob/master/Exekutagarriak.zip) hemen aurkitu daitezke.
 
 ## Developed by
 [![Website](https://img.shields.io/badge/XabiDermit-github-green?style=flat-square)](https://github.com/XabiDermit)
