@@ -1,5 +1,5 @@
 # WEKA Proiektua
-Erabakiak Hartzeko Euskarri Sistemen ikasgaiko proiektua. Helburua datu multzo batean datu meatzaritza aplikatzea da. Datu multzoan Tweet desberdinak dauzkagu eta atazaren zeregina Tweet horiek gorroto sentimenduak dituzten Tweetak sailkatzea da. Sinpleagoa izateko, gorroto sentimenduak kutsu arrazista zein sexista dituzten Tweetak direla kontsideratuko da. 
+Helburua datu multzo batean datu meatzaritza aplikatzea da. Datu multzoan Tweet desberdinak dauzkagu eta atazaren zeregina Tweet horiek gorroto sentimenduak dituzten Tweetak sailkatzea da. Sinpleagoa izateko, gorroto sentimenduak kutsu arrazista zein sexista dituzten Tweetak direla kontsideratuko da. 
 
 Sailkapena egiteko bi eredu iragarle desberdin erabiliko dira, Logistic Regression, baseline bezala erabilko dena, eta Multilayer Perceptron. Bi ereduen jarduera konparatuko da, eta lortutako emaitzen analisia garatuko da dokumentazioan.
 
